@@ -46,7 +46,7 @@ git clone https://github.com/miladmahmoodi/twitter.git
 ```
 cd twitter
 ```
-Now config your venv and activate it. then:
+Now config your virtual environment and activate it. then:
 ```
 pip install -r requirements.txt
 ```
