@@ -1,9 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext as _
-from core.models import BaseModel
+from core.models import BaseModel, TimeStampMixin
 
 
-class Relation(BaseModel):
+class Relation(TimeStampMixin, BaseModel):
     from_user = models.ManyToManyField(
         'User',
         verbose_name=_('from user'),

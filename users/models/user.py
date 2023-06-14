@@ -1,9 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext as _
-from core.models import BaseModel
+from core.models import BaseModel, TimeStampMixin
 
 
-class User(BaseModel):
+class User(TimeStampMixin, BaseModel):
     username = models.CharField(
         verbose_name=_('username'),
         max_length=50,
@@ -52,14 +52,6 @@ class User(BaseModel):
     is_active = models.BooleanField(
         verbose_name=_('is active'),
         default=True,
-    )
-    created_at = models.DateTimeField(
-        verbose_name=_('created at'),
-        auto_now_add=True,
-    )
-    update_at = models.DateTimeField(
-        verbose_name=_('updated at'),
-        auto_now=True,
     )
 
     def __str__(self):
