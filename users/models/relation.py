@@ -4,13 +4,17 @@ from core.models import BaseModel, TimeStampMixin
 
 
 class Relation(TimeStampMixin, BaseModel):
-    from_user = models.ManyToManyField(
-        'User',
+    from_user = models.ForeignKey(
+        'user.User',
+        on_delete=models.CASCADE,
         verbose_name=_('from user'),
+        related_name='following',
     )
-    to_user = models.ManyToManyField(
-        'User',
+    to_user = models.ForeignKey(
+        'user.User',
+        on_delete=models.CASCADE,
         verbose_name=_('to user'),
+        related_name='followers',
     )
 
     def __str__(self):
