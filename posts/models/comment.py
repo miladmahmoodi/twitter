@@ -15,7 +15,7 @@ class Comment(TimeStampMixin, BaseModel):
         related_name='comments',
     )
     post = models.ForeignKey(
-        'Post',
+        'posts.Post',
         verbose_name=_('post'),
         on_delete=models.CASCADE,
         related_name='comments',
