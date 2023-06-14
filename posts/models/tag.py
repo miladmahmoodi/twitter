@@ -1,9 +1,9 @@
 from django.db import models
-from core.models import BaseModel
+from core.models import BaseModel, TimeStampMixin
 from django.utils.translation import gettext as _
 
 
-class Tag(BaseModel):
+class Tag(TimeStampMixin, BaseModel):
     """
 
     """
@@ -12,19 +12,12 @@ class Tag(BaseModel):
         'users.User',
         verbose_name=_('creator'),
         on_delete=models.PROTECT,
+        related_name='tags',
     )
     name = models.CharField(
         verbose_name=_('name'),
         max_length=50,
         unique=True,
-    )
-    created_at = models.DateTimeField(
-        verbose_name=_('created at'),
-        auto_now_add=True,
-    )
-    updated_at = models.DateTimeField(
-        verbose_name=_('updated at'),
-        auto_now=True,
     )
 
     def __str__(self):
