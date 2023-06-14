@@ -21,7 +21,7 @@ class Post(TimeStampMixin, BaseModel):
         max_length=100,
     )
     image = models.ForeignKey(
-        'Image',
+        'posts.Image',
         on_delete=models.CASCADE,
         verbose_name=_('image'),
         null=True,
@@ -32,13 +32,13 @@ class Post(TimeStampMixin, BaseModel):
         max_length=2_200,
     )
     tags = models.ManyToManyField(
-        'tag',
+        'posts.tag',
         verbose_name=_('tag'),
         null=True,
         blank=True,
     )
     comment = models.ForeignKey(
-        'comment',
+        'posts.comment',
         on_delete=models.PROTECT,
         verbose_name=_('comment'),
         null=True,

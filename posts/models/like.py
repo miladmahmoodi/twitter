@@ -15,7 +15,7 @@ class Like(TimeStampMixin, BaseModel):
         related_name='likes'
     )
     post = models.ForeignKey(
-        'Post',
+        'posts.Post',
         verbose_name=_('user'),
         on_delete=models.CASCADE,
         related_name='likes'

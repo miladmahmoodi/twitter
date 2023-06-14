@@ -9,7 +9,7 @@ class Image(TimeStampMixin, BaseModel):
     """
 
     post = models.ForeignKey(
-        'Posts',
+        'post.Posts',
         verbose_name=_('post'),
         on_delete=models.CASCADE,
         related_name='images',
