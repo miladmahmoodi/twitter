@@ -1,9 +1,9 @@
 from django.db import models
-from core.models import BaseModel
+from core.models import BaseModel, TimeStampMixin
 from django.utils.translation import gettext as _
 
 
-class Image(BaseModel):
+class Image(TimeStampMixin, BaseModel):
     """
 
     """
@@ -12,6 +12,7 @@ class Image(BaseModel):
         'Posts',
         verbose_name=_('post'),
         on_delete=models.CASCADE,
+        related_name='images',
     )
     image = models.ImageField(
         verbose_name=_('image'),
@@ -20,14 +21,6 @@ class Image(BaseModel):
     alt = models.CharField(
         verbose_name=_('alternative'),
         max_length=100,
-    )
-    created_at = models.DateTimeField(
-        verbose_name=_('created at'),
-        auto_now_add=True,
-    )
-    updated_at = models.DateTimeField(
-        verbose_name=_('updated at'),
-        auto_now=True,
     )
 
     def __str__(self):
