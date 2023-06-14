@@ -1,9 +1,9 @@
 from django.db import models
-from core.models import BaseModel
+from core.models import BaseModel, TimeStampMixin
 from django.utils.translation import gettext as _
 
 
-class Comment(BaseModel):
+class Comment(TimeStampMixin, BaseModel):
     """
 
     """
@@ -12,11 +12,13 @@ class Comment(BaseModel):
         'users.User',
         verbose_name=_('user'),
         on_delete=models.CASCADE,
+        related_name='comments',
     )
     post = models.ForeignKey(
         'Post',
         verbose_name=_('post'),
         on_delete=models.CASCADE,
+        related_name='comments',
     )
     parent = models.ForeignKey(
         'self',
@@ -24,18 +26,11 @@ class Comment(BaseModel):
         on_delete=models.CASCADE,
         null=True,
         blank=True,
+        related_name='children',
     )
     text = models.CharField(
         verbose_name=_('text'),
         max_length=2_200,
-    )
-    created_at = models.DateTimeField(
-        verbose_name=_('created at'),
-        auto_now_add=True,
-    )
-    updated_at = models.DateTimeField(
-        verbose_name=_('updated at'),
-        auto_now=True,
     )
 
     def __str__(self):

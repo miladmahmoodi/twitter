@@ -1,9 +1,9 @@
 from django.db import models
-from core.models import BaseModel
+from core.models import BaseModel, TimeStampMixin
 from django.utils.translation import gettext as _
 
 
-class Like(BaseModel):
+class Like(TimeStampMixin, BaseModel):
     """
 
     """
@@ -12,19 +12,13 @@ class Like(BaseModel):
         'users.User',
         verbose_name=_('user'),
         on_delete=models.CASCADE,
+        related_name='likes'
     )
     post = models.ForeignKey(
         'Post',
         verbose_name=_('user'),
         on_delete=models.CASCADE,
-    )
-    created_at = models.DateTimeField(
-        verbose_name=_('created at'),
-        auto_now_add=True,
-    )
-    updated_at = models.DateTimeField(
-        verbose_name=_('updated at'),
-        auto_now=True,
+        related_name='likes'
     )
 
     def __str__(self):
