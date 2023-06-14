@@ -2,6 +2,8 @@ from django.db import models
 from core.models import BaseModel, TimeStampMixin
 from django.utils.translation import gettext as _
 
+from . import Like, Comment, Tag
+
 
 class Post(TimeStampMixin, BaseModel):
     """
@@ -29,7 +31,7 @@ class Post(TimeStampMixin, BaseModel):
         verbose_name=_('caption'),
         max_length=2_200,
     )
-    tag = models.ManyToManyField(
+    tags = models.ManyToManyField(
         'tag',
         verbose_name=_('tag'),
         null=True,
@@ -54,6 +56,31 @@ class Post(TimeStampMixin, BaseModel):
         verbose_name=_('is active'),
         default=True,
     )
+
+    def get_user_likes(self):
+        """
+
+        :return:
+        """
+        return Like.objects.filter(
+            post=self.id,
+        )
+
+    def get_post_comments(self):
+        """
+
+        :return:
+        """
+        return Comment.objects.filter(
+            post=self.id,
+        )
+
+    def get_post_tags(self):
+        """
+
+        :return:
+        """
+        return self.tags.all()
 
     def __str__(self):
         return f'{self.user} - {self.title}'
