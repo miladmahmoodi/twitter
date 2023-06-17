@@ -1,9 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext as _
 from core.models import BaseModel, TimeStampMixin
+from django.contrib.auth.models import AbstractBaseUser
 
 
-class User(TimeStampMixin, BaseModel):
+class User(AbstractBaseUser, BaseModel):
     username = models.CharField(
         verbose_name=_('username'),
         max_length=50,
