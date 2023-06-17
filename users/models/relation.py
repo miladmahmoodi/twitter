@@ -3,7 +3,7 @@ from django.utils.translation import gettext as _
 from core.models import BaseModel, TimeStampMixin
 
 
-class Relation(TimeStampMixin, BaseModel):
+class Relation(BaseModel):
     from_user = models.ForeignKey(
         'user.User',
         on_delete=models.CASCADE,
