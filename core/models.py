@@ -9,16 +9,16 @@ class BaseModel(models.Model):
         default=uuid4,
         editable=False,
     )
+    created_at = models.DateTimeField(
+        verbose_name=_('created at'),
+        auto_now_add=True,
+    )
 
     class Meta:
         abstract = True
 
 
 class TimeStampMixin:
-    created_at = models.DateTimeField(
-        verbose_name=_('created at'),
-        auto_now_add=True,
-    )
     update_at = models.DateTimeField(
         verbose_name=_('updated at'),
         auto_now=True,
