@@ -3,7 +3,7 @@ from core.models import BaseModel, TimeStampMixin
 from django.utils.translation import gettext as _
 
 
-class Like(TimeStampMixin, BaseModel):
+class Like(BaseModel):
     """
 
     """
