@@ -57,4 +57,4 @@ python manage.py migrate
 python manage.py runserver
 ```
 ### ERD
-![project ERD image]()
+![project ERD image](http://miladmahmoodi.ir/twitter/twitter_erd.jpg)
