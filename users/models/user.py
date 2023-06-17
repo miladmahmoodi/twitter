@@ -4,7 +4,7 @@ from core.models import BaseModel, TimeStampMixin
 from django.contrib.auth.models import AbstractBaseUser
 
 
-class User(AbstractBaseUser, BaseModel):
+class User(TimeStampMixin, AbstractBaseUser, BaseModel):
     username = models.CharField(
         verbose_name=_('username'),
         max_length=50,
