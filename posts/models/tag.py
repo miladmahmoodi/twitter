@@ -25,6 +25,20 @@ class Tag(BaseModel):
         unique=True,
     )
 
+    def tag_posts(self):
+        """
+
+        :return:
+        """
+        return self.posts.all()
+
+    def tag_post_count(self):
+        """
+
+        :return:
+        """
+        return self.posts.count()
+
     def __str__(self):
         return self.name
 
