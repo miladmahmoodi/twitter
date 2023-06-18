@@ -22,3 +22,13 @@ class Tag(BaseModel):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        indexes = [
+            models.Index(
+                fields=[
+                    'name',
+                ],
+                name='name_index',
+            ),
+        ]
