@@ -9,7 +9,7 @@ class Image(BaseModel):
     """
 
     post = models.ForeignKey(
-        'post.Posts',
+        'posts.Posts',
         verbose_name=_('post'),
         on_delete=models.CASCADE,
         related_name='images',

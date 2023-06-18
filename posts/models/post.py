@@ -2,7 +2,7 @@ from django.db import models
 from core.models import BaseModel, TimeStampMixin
 from django.utils.translation import gettext as _
 
-from . import Like, Comment, Tag
+from . import Like, Comment
 
 
 class Post(TimeStampMixin, BaseModel):
