@@ -2,7 +2,7 @@ from django.db import models
 from core.models import BaseModel, TimeStampMixin
 from django.utils.translation import gettext as _
 
-from . import Like, Comment, Tag
+from . import Like, Comment
 
 
 class Post(TimeStampMixin, BaseModel):
@@ -11,7 +11,7 @@ class Post(TimeStampMixin, BaseModel):
     """
 
     user = models.ForeignKey(
-        'user.User',
+        'users.User',
         verbose_name=_('user'),
         on_delete=models.CASCADE,
         related_name='posts',
