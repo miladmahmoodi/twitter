@@ -24,6 +24,13 @@ class Post(TimeStampMixin, BaseModel):
         verbose_name=_('caption'),
         max_length=2_200,
     )
+    tag = models.ManyToManyField(
+        'posts.Tag',
+        related_name='tags',
+        verbose_name=_('tag'),
+        null=True,
+        blank=True,
+    )
     likes_count = models.PositiveIntegerField(
         verbose_name=_('likes count'),
         default=0,
