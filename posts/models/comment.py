@@ -35,3 +35,13 @@ class Comment(TimeStampMixin, BaseModel):
 
     def __str__(self):
         return self.text
+
+    class Meta:
+        indexes = [
+            models.Index(
+                fields=[
+                    'text',
+                ],
+                name='text_index',
+            ),
+        ]
