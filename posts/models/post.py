@@ -11,7 +11,7 @@ class Post(TimeStampMixin, BaseModel):
     """
 
     user = models.ForeignKey(
-        'user.User',
+        'users.User',
         verbose_name=_('user'),
         on_delete=models.CASCADE,
         related_name='posts',
