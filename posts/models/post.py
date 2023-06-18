@@ -20,30 +20,9 @@ class Post(TimeStampMixin, BaseModel):
         verbose_name=_('title'),
         max_length=100,
     )
-    image = models.ForeignKey(
-        'posts.Image',
-        on_delete=models.CASCADE,
-        verbose_name=_('image'),
-        null=True,
-        blank=True,
-    )
     caption = models.CharField(
         verbose_name=_('caption'),
         max_length=2_200,
-    )
-    tags = models.ManyToManyField(
-        'posts.Tag',
-        related_name='posts',
-        verbose_name=_('tag'),
-        null=True,
-        blank=True,
-    )
-    comment = models.ForeignKey(
-        'posts.Comment',
-        on_delete=models.PROTECT,
-        verbose_name=_('comment'),
-        null=True,
-        blank=True,
     )
     likes_count = models.PositiveIntegerField(
         verbose_name=_('likes count'),

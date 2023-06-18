@@ -7,7 +7,12 @@ class Tag(BaseModel):
     """
 
     """
-
+    
+    post = models.ManyToManyField(
+        'posts.Post',
+        related_name='posts',
+        verbose_name=_('post'),
+    )
     creator = models.ForeignKey(
         'users.User',
         verbose_name=_('creator'),
