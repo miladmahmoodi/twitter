@@ -5,13 +5,13 @@ from core.models import BaseModel, TimeStampMixin
 
 class Relation(BaseModel):
     from_user = models.ForeignKey(
-        'user.User',
+        'users.User',
         on_delete=models.CASCADE,
         verbose_name=_('from user'),
         related_name='following',
     )
     to_user = models.ForeignKey(
-        'user.User',
+        'users.User',
         on_delete=models.CASCADE,
         verbose_name=_('to user'),
         related_name='followers',
