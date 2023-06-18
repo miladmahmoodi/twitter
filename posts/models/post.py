@@ -33,6 +33,7 @@ class Post(TimeStampMixin, BaseModel):
     )
     tags = models.ManyToManyField(
         'posts.tag',
+        related_name='posts',
         verbose_name=_('tag'),
         null=True,
         blank=True,
