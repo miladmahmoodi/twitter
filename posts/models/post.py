@@ -32,14 +32,14 @@ class Post(TimeStampMixin, BaseModel):
         max_length=2_200,
     )
     tags = models.ManyToManyField(
-        'posts.tag',
+        'posts.Tag',
         related_name='posts',
         verbose_name=_('tag'),
         null=True,
         blank=True,
     )
     comment = models.ForeignKey(
-        'posts.comment',
+        'posts.Comment',
         on_delete=models.PROTECT,
         verbose_name=_('comment'),
         null=True,
