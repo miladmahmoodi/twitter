@@ -28,4 +28,4 @@ class Image(BaseModel):
     )
 
     def __str__(self):
-        return f'{self.alt}'
+        return self.name
