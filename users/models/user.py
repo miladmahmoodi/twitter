@@ -87,6 +87,7 @@ class User(TimeStampMixin, AbstractBaseUser, BaseModel):
     email = models.EmailField(
         verbose_name=_('email'),
         max_length=254,
+        unique=True,
     )
     password = models.CharField(
         verbose_name=_('password'),
@@ -116,6 +117,14 @@ class User(TimeStampMixin, AbstractBaseUser, BaseModel):
         verbose_name=_('post count'),
         default=0,
     )
+    staff = models.BooleanField(
+        verbose_name=_('is staff'),
+        default=False,
+    )
+    is_superuser = models.BooleanField(
+        verbose_name=_('is superuser'),
+        default=False,
+    )
     is_active = models.BooleanField(
         verbose_name=_('is active'),
         default=True,
@@ -128,6 +137,29 @@ class User(TimeStampMixin, AbstractBaseUser, BaseModel):
 
     def __str__(self):
         return self.username
+
+    def is_staff(self):
+        """
+
+        :return:
+        """
+        return self.is_staff
+
+    def has_perm(self, obj=None):
+        """
+
+        :param obj:
+        :return:
+        """
+        return self.is_superuser
+
+    def has_module_perms(self, app_label):
+        """
+
+        :param app_label:
+        :return:
+        """
+        return self.is_superuser
 
     class Meta:
         indexes = [
