@@ -25,7 +25,7 @@ class Image(BaseModel):
     image = models.ImageField(
         verbose_name=_('image'),
         upload_to='post/images/',
-    ),
+    )
 
     def __str__(self):
-        return f'{self.post} - {self.alt}'
+        return f'{self.alt}'
