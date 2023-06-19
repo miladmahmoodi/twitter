@@ -7,4 +7,17 @@ class CommentAdmin(admin.ModelAdmin):
     """
 
     """
-    pass
+    list_display = [
+        'id',
+        'user',
+        'post',
+        'parent',
+        'text',
+        'created_at',
+    ]
+    search_fields = [
+        'user',
+    ]
+    list_filter = [
+        'created_at',
+    ]
