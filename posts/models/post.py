@@ -70,4 +70,4 @@ class Post(TimeStampMixin, BaseModel):
         return self.tags.all()
 
     def __str__(self):
-        return f'{self.user} - {self.title}'
+        return self.title
