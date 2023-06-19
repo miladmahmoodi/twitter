@@ -34,7 +34,7 @@ class Comment(TimeStampMixin, BaseModel):
     )
 
     def __str__(self):
-        return self.text
+        return f'{self.text} - Commented on - {self.post}'
 
     class Meta:
         indexes = [
