@@ -7,4 +7,18 @@ class ImageAdmin(admin.ModelAdmin):
     """
 
     """
-    pass
+    list_display = [
+        'id',
+        'name',
+        'alt',
+        'image',
+        'post',
+        'created_at',
+    ]
+    search_fields = [
+        'name',
+        'alt',
+    ]
+    list_filter = [
+        'created_at',
+    ]

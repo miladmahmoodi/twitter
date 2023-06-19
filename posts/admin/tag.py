@@ -7,4 +7,14 @@ class TagAdmin(admin.ModelAdmin):
     """
 
     """
-    pass
+    list_display = [
+        'id',
+        'name',
+        'created_at',
+    ]
+    search_fields = [
+        'name',
+    ]
+    list_filter = [
+        'created_at',
+    ]

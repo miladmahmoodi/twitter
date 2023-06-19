@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ..models import Post, Tag, Image
+from ..models import Post, Image
 
 
 class TagInline(admin.TabularInline):
@@ -25,6 +25,23 @@ class PostAdmin(admin.ModelAdmin):
     """
 
     """
+
+    list_display = [
+        'id',
+        'title',
+        'caption',
+        'likes_count',
+        'comments_count',
+        'is_active',
+        'created_at',
+    ]
+    search_fields = [
+        'title',
+    ]
+    list_filter = [
+        'created_at',
+    ]
+
     inlines = [
         TagInline,
         ImageInline,
