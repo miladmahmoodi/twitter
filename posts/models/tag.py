@@ -8,12 +8,6 @@ class Tag(BaseModel):
 
     """
 
-    creator = models.ForeignKey(
-        'users.User',
-        verbose_name=_('creator'),
-        on_delete=models.PROTECT,
-        related_name='tags',
-    )
     name = models.CharField(
         verbose_name=_('name'),
         max_length=50,
