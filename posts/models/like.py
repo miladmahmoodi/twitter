@@ -16,10 +16,10 @@ class Like(BaseModel):
     )
     post = models.ForeignKey(
         'posts.Post',
-        verbose_name=_('user'),
+        verbose_name=_('post'),
         on_delete=models.CASCADE,
         related_name='likes'
     )
 
     def __str__(self):
-        return f'{self.user} liked {self.post}'
+        return f'{self.user} liked {self.post.title} from {self.post.user}'
