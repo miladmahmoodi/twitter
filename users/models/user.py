@@ -70,28 +70,11 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 #         return user
 
 
-class User(TimeStampMixin, AbstractUser, BaseModel):
-    # username = models.CharField(
-    #     verbose_name=_('username'),
-    #     max_length=50,
-    #     unique=True,
-    # )
-    # first_name = models.CharField(
-    #     verbose_name=_('first name'),
-    #     max_length=50,
-    # )
-    # last_name = models.CharField(
-    #     verbose_name=_('last name'),
-    #     max_length=70,
-    # )
+class User(AbstractUser, BaseModel):
     email = models.EmailField(
         verbose_name=_("email address"),
         unique=True,
     )
-    # password = models.CharField(
-    #     verbose_name=_('password'),
-    #     max_length=128,
-    # )
     bio = models.CharField(
         verbose_name=_('biography'),
         max_length=100,
