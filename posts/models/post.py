@@ -1,11 +1,8 @@
 from django.db import models
 from core.models import BaseModel, TimeStampMixin
 from django.utils.translation import gettext as _
-from django.contrib.auth import get_user_model
 
 from . import Like, Comment
-
-User = get_user_model
 
 
 class Post(TimeStampMixin, BaseModel):
@@ -14,7 +11,7 @@ class Post(TimeStampMixin, BaseModel):
     """
 
     user = models.ForeignKey(
-        'User',
+        'users.User',
         verbose_name=_('user'),
         on_delete=models.CASCADE,
         related_name='posts',
@@ -73,4 +70,4 @@ class Post(TimeStampMixin, BaseModel):
         return self.tags.all()
 
     def __str__(self):
-        return f'{self.user} - {self.title}'
+        return self.title
