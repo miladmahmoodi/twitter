@@ -5,93 +5,11 @@ from core.utils.base_errors import BaseError
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 
-# class UserManager(BaseUserManager):
-#     """
-#
-#     """
-#
-#     def create_user(self, username: str = None, password: str = None):
-#         """
-#
-#         :param username:
-#         :param password:
-#         :return:
-#         """
-#         if not username:
-#             raise ValueError(BaseError.user_must_have_username)
-#         user = self.model(
-#             username=username,
-#         )
-#         user.set_password(password)
-#         user.save(
-#             using=self._db,
-#         )
-#         return user
-#
-#     def create_staffuser(self, username: str = None, password: str = None):
-#         """
-#
-#         :param username:
-#         :param password:
-#         :return:
-#         """
-#         if not username:
-#             raise ValueError(BaseError.user_must_have_username)
-#         user = self.model(
-#             username=username,
-#         )
-#         user.set_password(password)
-#         user.staff = True
-#         user.save(
-#             using=self._db,
-#         )
-#         return user
-#
-#     def create_superuser(self, username: str = None, password: str = None):
-#         """
-#
-#         :param username:
-#         :param password:
-#         :return:
-#         """
-#
-#         if not username:
-#             raise ValueError(BaseError.user_must_have_username)
-#         user = self.model(
-#             username=username,
-#         )
-#         user.set_password(password)
-#         user.is_staff = True
-#         user.is_superuser = True
-#         user.is_active = True
-#         user.save(
-#             using=self._db,
-#         )
-#         return user
-
-
-class User(TimeStampMixin, AbstractUser, BaseModel):
-    # username = models.CharField(
-    #     verbose_name=_('username'),
-    #     max_length=50,
-    #     unique=True,
-    # )
-    # first_name = models.CharField(
-    #     verbose_name=_('first name'),
-    #     max_length=50,
-    # )
-    # last_name = models.CharField(
-    #     verbose_name=_('last name'),
-    #     max_length=70,
-    # )
+class User(AbstractUser, BaseModel):
     email = models.EmailField(
         verbose_name=_("email address"),
         unique=True,
     )
-    # password = models.CharField(
-    #     verbose_name=_('password'),
-    #     max_length=128,
-    # )
     bio = models.CharField(
         verbose_name=_('biography'),
         max_length=100,
