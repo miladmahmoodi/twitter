@@ -1,7 +1,73 @@
 from django.db import models
 from django.utils.translation import gettext as _
 from core.models import BaseModel, TimeStampMixin
-from django.contrib.auth.models import AbstractBaseUser
+from core.utils.base_errors import BaseError
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+
+
+class UserManager(BaseUserManager):
+    """
+
+    """
+
+    def create_user(self, username: str = None, password: str = None):
+        """
+
+        :param username:
+        :param password:
+        :return:
+        """
+        if not username:
+            raise ValueError(BaseError.user_must_have_username)
+        user = self.model(
+            username=username,
+        )
+        user.set_password(password)
+        user.save(
+            using=self._db,
+        )
+        return user
+
+    def create_staffuser(self, username: str = None, password: str = None):
+        """
+
+        :param username:
+        :param password:
+        :return:
+        """
+        if not username:
+            raise ValueError(BaseError.user_must_have_username)
+        user = self.model(
+            username=username,
+        )
+        user.set_password(password)
+        user.staff = True
+        user.save(
+            using=self._db,
+        )
+        return user
+
+    def create_superuser(self, username: str = None, password: str = None):
+        """
+
+        :param username:
+        :param password:
+        :return:
+        """
+
+        if not username:
+            raise ValueError(BaseError.user_must_have_username)
+        user = self.model(
+            username=username,
+        )
+        user.set_password(password)
+        user.is_staff = True
+        user.is_superuser = True
+        user.is_active = True
+        user.save(
+            using=self._db,
+        )
+        return user
 
 
 class User(TimeStampMixin, AbstractBaseUser, BaseModel):
@@ -57,6 +123,8 @@ class User(TimeStampMixin, AbstractBaseUser, BaseModel):
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
+
+    objects = UserManager()
 
     def __str__(self):
         return self.username
