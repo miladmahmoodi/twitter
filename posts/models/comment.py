@@ -1,9 +1,6 @@
 from django.db import models
 from core.models import BaseModel, TimeStampMixin
 from django.utils.translation import gettext as _
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
 
 
 class Comment(TimeStampMixin, BaseModel):
@@ -12,7 +9,7 @@ class Comment(TimeStampMixin, BaseModel):
     """
 
     user = models.ForeignKey(
-        'User',
+        'users.User',
         verbose_name=_('user'),
         on_delete=models.CASCADE,
         related_name='comments',
