@@ -30,6 +30,7 @@ class Post(TimeStampMixin, BaseModel):
         verbose_name=_('tag'),
         null=True,
         blank=True,
+        editable=False,
     )
     likes_count = models.PositiveIntegerField(
         verbose_name=_('likes count'),
