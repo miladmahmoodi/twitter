@@ -22,4 +22,4 @@ class Like(BaseModel):
     )
 
     def __str__(self):
-        return f'{self.user} liked {self.post.title} from {self.post.user}'
+        return f'{self.user} liked {self.post}'
