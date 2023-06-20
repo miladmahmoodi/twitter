@@ -10,9 +10,4 @@ urlpatterns = [
         name='user_detail',
 
     ),
-    path(
-        '<str:username>/status/<uuid:post_id>/',
-        views.post_detail,
-        app_name='post_detail',
-    )
 ]
