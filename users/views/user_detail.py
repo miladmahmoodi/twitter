@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -15,4 +15,11 @@ def user_detail_view(request, username):
         username=username,
         is_active=True,
     )
-    return HttpResponse(user.get_full_name())
+    context = {
+        'user': user,
+    }
+    return render(
+        request,
+        template_name='users/user-detail.html',
+        context=context,
+    )

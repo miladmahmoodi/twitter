@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 from django.contrib.auth import get_user_model
 
 from posts.models import Post
@@ -16,4 +16,11 @@ def home_view(request):
     posts = Post.objects.filter(
         is_active=True,
     )
-    return HttpResponse(posts)
+    context = {
+        'posts': posts,
+    }
+    return render(
+        request,
+        template_name='users/home.html',
+        context=context,
+    )
