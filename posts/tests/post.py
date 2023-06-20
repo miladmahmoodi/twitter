@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
-from posts.models import Post
+from posts.models import Post, Like
 
 
 User = get_user_model()
@@ -20,7 +20,7 @@ class PostModelTestCase(TestCase):
             password='testpass',
         )
         self.post = Post.objects.create(
-            user_id=self.user,
+            user=self.user,
             title='Test Post',
             caption='This is a test post.',
             is_active=True,
@@ -36,22 +36,22 @@ class PostModelTestCase(TestCase):
         self.post.likes.create(user=self.user)
         self.assertTrue(self.post.is_like_by_user(self.user))
 
-    def test_add_like(self):
+    def test_add_post_like(self):
         """
 
         :return:
         """
-        self.post.add_like()
+        self.post.add_post_like()
         self.assertEqual(self.post.likes_count, 2)
 
-    def test_remove_like(self):
+    def test_remove_post_like(self):
         """
 
         :return:
         """
         self.assertEqual(self.post.likes_count, 1)
-        self.post.remove_like()
+        self.post.remove_post_like()
         self.assertEqual(self.post.likes_count, 0)
-        self.post.remove_like()
+        self.post.remove_post_like()
         self.assertEqual(self.post.likes_count, 0)
 
