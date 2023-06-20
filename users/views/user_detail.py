@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-def user_detail(request, username):
+def user_detail_view(request, username):
     """
 
     :param request:
