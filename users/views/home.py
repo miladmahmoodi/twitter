@@ -13,5 +13,7 @@ def home_view(request):
     :param request:
     :return:
     """
-    posts = Post.objects.all()
+    posts = Post.objects.filter(
+        is_active=True,
+    )
     return HttpResponse(posts)
