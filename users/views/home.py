@@ -1,18 +1,19 @@
 from django.shortcuts import render, HttpResponse
 from django.contrib.auth import get_user_model
 
+from posts.models import Post
+
+
 User = get_user_model()
 
 
-def user_detail_view(request, username):
+def home_view(request):
     """
 
     :param request:
-    :param username:
     :return:
     """
-    user = User.objects.get(
-        username=username,
+    posts = Post.objects.filter(
         is_active=True,
     )
-    return HttpResponse(user.get_full_name())
+    return HttpResponse(posts)
