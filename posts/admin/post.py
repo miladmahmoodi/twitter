@@ -45,6 +45,10 @@ class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {
         "slug": ("title",)
     }
+    readonly_fields = (
+        'likes_count',
+        'comments_count',
+    )
     inlines = [
         TagInline,
         ImageInline,
