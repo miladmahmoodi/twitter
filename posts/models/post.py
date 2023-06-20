@@ -19,6 +19,11 @@ class Post(TimeStampMixin, BaseModel):
     title = models.CharField(
         verbose_name=_('title'),
         max_length=100,
+        unique=True,
+    )
+    slug = models.SlugField(
+        max_length=255,
+        unique=True,
     )
     caption = models.CharField(
         verbose_name=_('caption'),
@@ -72,3 +77,16 @@ class Post(TimeStampMixin, BaseModel):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        """
+
+        """
+        indexes = [
+            models.Index(
+                fields=[
+                    'slug',
+                ],
+                name='slug_index',
+            ),
+        ]
