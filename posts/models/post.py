@@ -50,30 +50,32 @@ class Post(TimeStampMixin, BaseModel):
         default=True,
     )
 
-    def get_user_likes(self):
+    def is_like_by_user(self, user):
+        """
+
+        :param user:
+        :return:
+        """
+        return self.likes.filter(
+            user=user
+        ).exists()
+
+    def add_post_like(self):
         """
 
         :return:
         """
-        return Like.objects.filter(
-            post=self.id,
-        )
+        self.likes_count += 1
+        self.save()
 
-    def get_post_comments(self):
+    def remove_post_like(self):
         """
 
         :return:
         """
-        return Comment.objects.filter(
-            post=self.id,
-        )
-
-    def get_post_tags(self):
-        """
-
-        :return:
-        """
-        return self.tags.all()
+        if self.likes_count > 0:
+            self.likes_count -= 1
+            self.save()
 
     def __str__(self):
         return self.title
