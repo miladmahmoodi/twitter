@@ -75,16 +75,3 @@ class Post(TimeStampMixin, BaseModel):
 
     def __str__(self):
         return self.title
-
-    class Meta:
-        """
-
-        """
-        indexes = [
-            models.Index(
-                fields=[
-                    'slug',
-                ],
-                name='slug_index',
-            ),
-        ]
