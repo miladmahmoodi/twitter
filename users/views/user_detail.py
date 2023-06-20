@@ -11,5 +11,8 @@ def user_detail(request, username):
     :param username:
     :return:
     """
-    user = User.objects.get(username=username)
+    user = User.objects.get(
+        username=username,
+        is_active=True,
+    )
     return HttpResponse(user.get_full_name())
