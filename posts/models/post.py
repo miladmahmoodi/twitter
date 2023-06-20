@@ -21,10 +21,6 @@ class Post(TimeStampMixin, BaseModel):
         max_length=100,
         unique=True,
     )
-    slug = models.SlugField(
-        max_length=255,
-        unique=True,
-    )
     caption = models.CharField(
         verbose_name=_('caption'),
         max_length=2_200,
