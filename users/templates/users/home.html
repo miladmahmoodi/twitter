@@ -2,33 +2,34 @@
 {% load static %}
 
 {% block title %}
-{{user.username}}
+explore
 {% endblock %}
 
 {% block content %}
+
+    {% for post in posts %}
       <li>
           <div>
             <h2>
-                {{ user.first_name }}
+                {{ post.title }}
             </h2>
             <h2>
-                {{  user.last_name}}
+                {{ post.user }}
             </h2>
             <h2>
-                {{ user.email }}
+                {{ post.caption }}
             </h2>
             <h2>
-                {{ user.bio }}
+                {{ post.tag }}
             </h2>
             <h2>
-                {{ user.followers_count }}
+                {{ post.likes_count }}
             </h2>
             <h2>
-                {{ user.following_count }}
-            </h2>
-                          <h2>
-                {{ user.post_count }}
+                {{ post.comments_count }}
             </h2>
           </div>
       </li>
+    {% endfor %}
+
 {% endblock %}
