@@ -29,7 +29,6 @@ class PostAdmin(admin.ModelAdmin):
     list_display = [
         'id',
         'title',
-        'slug',
         'caption',
         'likes_count',
         'comments_count',
@@ -42,9 +41,6 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = [
         'created_at',
     ]
-    prepopulated_fields = {
-        "slug": ("title",)
-    }
     readonly_fields = (
         'likes_count',
         'comments_count',
