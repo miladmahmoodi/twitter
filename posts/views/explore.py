@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 from ..models import Post
 
 
@@ -11,4 +11,12 @@ def explore_view(request):
     posts = Post.objects.filter(
         is_active=True,
     )
-    return HttpResponse(posts)
+    context = {
+        'posts': posts,
+    }
+
+    return render(
+        request,
+        template_name='post-list.html',
+        context=context,
+    )
