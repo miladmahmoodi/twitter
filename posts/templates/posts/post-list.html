@@ -6,5 +6,30 @@
 {% endblock %}
 
 {% block content %}
-<!--    products list-->
+
+    {% for post in posts %}
+      <li>
+          <div>
+            <h2>
+                {{ posts.title }}
+            </h2>
+            <h2>
+                {{ posts.user }}
+            </h2>
+            <h2>
+                {{ posts.caption }}
+            </h2>
+            <h2>
+                {{ posts.tag }}
+            </h2>
+            <h2>
+                {{ posts.likes_count }}
+            </h2>
+            <h2>
+                {{ posts.comments_count }}
+            </h2>
+          </div>
+      </li>
+    {% endfor %}
+
 {% endblock %}
