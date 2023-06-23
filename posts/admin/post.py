@@ -32,7 +32,7 @@ class PostAdmin(admin.ModelAdmin):
         'caption',
         'likes_count',
         'comments_count',
-        'is_active',
+        'status',
         'created_at',
     ]
     search_fields = [
