@@ -5,6 +5,31 @@ from uuid import uuid4
 from core.utils import StatusChoice
 
 
+class MyManager(models.Manager):
+    """
+
+    """
+
+    def get_queryset(self):
+        """
+
+        :return:
+        """
+        super().get_queryset().filter(
+            status='A',
+        )
+
+    def archives(self):
+        """
+
+        :return:
+        """
+
+        super().get_queryset().filter(
+            status='I',
+        )
+
+
 class BaseModel(models.Model):
     id = models.UUIDField(
         primary_key=True,
@@ -24,6 +49,8 @@ class SoftDeleteModel(BaseModel):
     """
 
     """
+
+    objects = MyManager()
     status = models.CharField(
         verbose_name=_('status'),
         max_length=1,
