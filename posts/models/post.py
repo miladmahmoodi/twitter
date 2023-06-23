@@ -3,31 +3,6 @@ from core.models import SoftDeleteModel, TimeStampMixin
 from django.utils.translation import gettext as _
 
 
-class PostManager(models.Manager):
-    """
-
-    """
-
-    def get_queryset(self):
-        """
-
-        :return:
-        """
-        super().get_queryset().filter(
-            status='A',
-        )
-
-    def archives(self):
-        """
-
-        :return:
-        """
-
-        super().get_queryset().filter(
-            status='I',
-        )
-
-
 class Post(TimeStampMixin, SoftDeleteModel):
     """
 
@@ -70,12 +45,6 @@ class Post(TimeStampMixin, SoftDeleteModel):
     comments_count = models.PositiveIntegerField(
         verbose_name=_('comments count'),
         default=0,
-    )
-    status = models.CharField(
-        verbose_name=_('status'),
-        max_length=1,
-        choices=StatusChoice.choices,
-        default=StatusChoice.ACTIVE,
     )
 
     def is_like_by_user(self, user):
