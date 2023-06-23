@@ -15,7 +15,7 @@ class MyManager(models.Manager):
 
         :return:
         """
-        super().get_queryset().filter(
+        return super().get_queryset().filter(
             status='A',
         )
 
@@ -25,7 +25,7 @@ class MyManager(models.Manager):
         :return:
         """
 
-        super().get_queryset().filter(
+        return super().get_queryset().filter(
             status='I',
         )
 
