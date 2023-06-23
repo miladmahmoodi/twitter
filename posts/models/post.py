@@ -39,6 +39,10 @@ class Post(TimeStampMixin, SoftDeleteModel):
         verbose_name=_('comments count'),
         default=0,
     )
+    is_active = models.BooleanField(
+        verbose_name=_('is active'),
+        default=True,
+    )
 
     def is_like_by_user(self, user):
         """
@@ -69,3 +73,13 @@ class Post(TimeStampMixin, SoftDeleteModel):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        indexes = [
+            models.Index(
+                fields=[
+                    'is_active',
+                ],
+                name='is_active_index',
+            ),
+        ]
