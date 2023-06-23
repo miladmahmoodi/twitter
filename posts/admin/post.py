@@ -44,6 +44,7 @@ class PostAdmin(admin.ModelAdmin):
     readonly_fields = (
         'likes_count',
         'comments_count',
+        'is_active',
     )
     inlines = [
         TagInline,
