@@ -16,7 +16,7 @@ class MyManager(models.Manager):
         :return:
         """
         return super().get_queryset().filter(
-            status='A',
+            is_active=True,
         )
 
     def archives(self):
@@ -26,7 +26,7 @@ class MyManager(models.Manager):
         """
 
         return super().get_queryset().filter(
-            status='I',
+            is_active=False,
         )
 
 
