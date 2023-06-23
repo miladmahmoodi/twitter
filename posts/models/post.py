@@ -3,6 +3,31 @@ from core.models import SoftDeleteModel, TimeStampMixin
 from django.utils.translation import gettext as _
 
 
+class PostManager(models.Manager):
+    """
+
+    """
+
+    def get_queryset(self):
+        """
+
+        :return:
+        """
+        super().get_queryset().filter(
+            status='A',
+        )
+
+    def archives(self):
+        """
+
+        :return:
+        """
+
+        super().get_queryset().filter(
+            status='I',
+        )
+
+
 class Post(TimeStampMixin, SoftDeleteModel):
     """
 
