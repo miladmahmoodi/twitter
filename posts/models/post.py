@@ -8,13 +8,6 @@ class Post(TimeStampMixin, SoftDeleteModel):
 
     """
 
-    class StatusChoice(models.TextChoices):
-        """
-
-        """
-        ACTIVE = 'A', _('active')
-        INACTIVE = 'I', _('inactive')
-
     user = models.ForeignKey(
         'users.User',
         verbose_name=_('user'),
