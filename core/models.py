@@ -13,6 +13,14 @@ class MyManager(models.Manager):
 
         :return:
         """
+        return super().get_queryset()
+
+    def actives(self):
+        """
+
+        :return:
+        """
+
         return super().get_queryset().filter(
             is_active=True,
         )
@@ -63,7 +71,7 @@ class SoftDeleteModel(BaseModel):
         :return: 
         """
         
-        self.is_active = False,
+        self.is_active = False
         self.save()
 
     class Meta:
