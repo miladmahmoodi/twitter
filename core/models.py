@@ -2,8 +2,6 @@ from django.db import models
 from django.utils.translation import gettext as _
 from uuid import uuid4
 
-from core.utils import StatusChoice
-
 
 class MyManager(models.Manager):
     """
@@ -51,13 +49,6 @@ class SoftDeleteModel(BaseModel):
     """
 
     objects = MyManager()
-    status = models.CharField(
-        verbose_name=_('status'),
-        max_length=1,
-        choices=StatusChoice.choices,
-        default=StatusChoice.ACTIVE,
-        db_index=True,
-    )
     
     def delete(self, using=None, keep_parents=False):
         """
@@ -67,7 +58,7 @@ class SoftDeleteModel(BaseModel):
         :return: 
         """
         
-        self.status = 'I',
+        self.is_active = False,
         self.save()
 
     class Meta:
