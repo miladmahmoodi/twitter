@@ -32,7 +32,6 @@ class PostAdmin(admin.ModelAdmin):
         'caption',
         'likes_count',
         'comments_count',
-        'is_active',
         'created_at',
     ]
     search_fields = [
@@ -44,7 +43,6 @@ class PostAdmin(admin.ModelAdmin):
     readonly_fields = (
         'likes_count',
         'comments_count',
-        'is_active',
     )
     inlines = [
         TagInline,
