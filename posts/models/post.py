@@ -1,14 +1,44 @@
 from django.db import models
-from core.models import BaseModel, TimeStampMixin
+from core.models import SoftDeleteModel, TimeStampMixin
 from django.utils.translation import gettext as _
 
-from . import Like, Comment
 
-
-class Post(TimeStampMixin, BaseModel):
+class PostManager(models.Manager):
     """
 
     """
+
+    def get_queryset(self):
+        """
+
+        :return:
+        """
+        super().get_queryset().filter(
+            status='A',
+        )
+
+    def archives(self):
+        """
+
+        :return:
+        """
+
+        super().get_queryset().filter(
+            status='I',
+        )
+
+
+class Post(TimeStampMixin, SoftDeleteModel):
+    """
+
+    """
+
+    class StatusChoice(models.TextChoices):
+        """
+
+        """
+        ACTIVE = 'A', _('active')
+        INACTIVE = 'I', _('inactive')
 
     user = models.ForeignKey(
         'users.User',
@@ -41,9 +71,11 @@ class Post(TimeStampMixin, BaseModel):
         verbose_name=_('comments count'),
         default=0,
     )
-    is_active = models.BooleanField(
-        verbose_name=_('is active'),
-        default=True,
+    status = models.CharField(
+        verbose_name=_('status'),
+        max_length=1,
+        choices=StatusChoice.choices,
+        default=StatusChoice.ACTIVE,
     )
 
     def is_like_by_user(self, user):
