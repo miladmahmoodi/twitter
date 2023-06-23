@@ -48,6 +48,11 @@ class SoftDeleteModel(BaseModel):
 
     """
 
+    is_active = models.BooleanField(
+        verbose_name=_('is active'),
+        default=True,
+    )
+
     objects = MyManager()
     
     def delete(self, using=None, keep_parents=False):
@@ -63,6 +68,14 @@ class SoftDeleteModel(BaseModel):
 
     class Meta:
         abstract = True
+        indexes = [
+            models.Index(
+                fields=[
+                    'is_active',
+                ],
+                name='is_active_index',
+            ),
+        ]
 
 
 class TimeStampMixin:
