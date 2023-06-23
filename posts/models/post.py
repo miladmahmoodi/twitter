@@ -46,12 +46,6 @@ class Post(TimeStampMixin, SoftDeleteModel):
         verbose_name=_('comments count'),
         default=0,
     )
-    status = models.CharField(
-        verbose_name=_('status'),
-        max_length=1,
-        choices=StatusChoice.choices,
-        default=StatusChoice.ACTIVE,
-    )
 
     def is_like_by_user(self, user):
         """
