@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Home
+Explore
 {% endblock %}
 
 {% block imports %}
@@ -15,8 +15,7 @@ Home
 				{% include 'components/navbar.html' %}
 			</div>
 		<div class="tweets">
-			{% for user in users %}
-			{{ user__username }}
+			{% for post in posts %}
 			<div class="tweet">
 				<img src="{{post.user.image.url }}" alt="Profile Picture">
 				<a href="#">

@@ -5,27 +5,99 @@
 {{post.title}}
 {% endblock %}
 
+{% block imports %}
+<link rel="stylesheet" href="{% static 'css/explore.css' %}">
+{% endblock %}
+
 {% block content %}
-<li>
-  <div>
-    <h2>
-        {{ post.title }}
-    </h2>
-    <h2>
-        {{ post.user }}
-    </h2>
-    <h2>
-        {{ post.caption }}
-    </h2>
-    <h2>
-        {{ post.tag }}
-    </h2>
-    <h2>
-        {{ post.likes_count }}
-    </h2>
-    <h2>
-        {{ post.comments_count }}
-    </h2>
-  </div>
-</li>
+	<div class="container">
+        			<div>
+				{% include 'components/navbar.html' %}
+			</div>
+		<div class="tweets">
+			<div class="tweet">
+				<img src="{{post.user.image.url }}" alt="Profile Picture">
+				<a href="#">
+					<h2>
+					{{ post.user.get_full_name }}
+					</h2>
+					<span>
+						@{{ post.user }}
+					</span>
+				</a>
+				<a href="#">
+					<p>
+						{{ post.title }}
+					</p>
+				</a>
+				<p>
+					{{ post.caption | truncatewords:50}}
+				</p>
+				<div class="tweet-img">
+					{% for image in post.images.all %}
+					<img src="{{ image.image.url }}" alt="{{ image.alt }}">
+					{% endfor %}
+				</div>
+				<div class="tweet-footer">
+					<span>
+						{{ post.created_at }}
+					</span>
+					<span>
+						Likes: {{ post.likes_count }}
+					</span>
+					<span>
+						Comments: {{ post.comments_count }}
+					</span>
+				</div>
+				<form method="post" action="" class="tweet-comment-form">
+					{% csrf_token %}
+					<textarea id="comment" name="comment" placeholder="Your comment..."></textarea>
+					<div class="tweet-comment-buttons">
+						<button type="submit">Send</button>
+					</div>
+				</form>
+				<div class="comments">
+					{% for comment in post.comments.all %}
+					<div class="comment">
+						{% if not comment.parent %}
+							<div class="comment-author">
+								<img src="{{ comment.user.image.url }}" alt="{{ user.image.alt }}">
+								<h3>
+									{{ comment.user}}
+								</h3>
+								<span>{{comment.created_at}}</span>
+							</div>
+							<p>
+								{{comment}}
+							</p>
+							<form method="post" action="" class="tweet-comment-form">
+								{% csrf_token %}
+								<textarea id="reply" name="comment" placeholder="Your answer..."></textarea>
+								<div class="tweet-comment-buttons">
+									<button type="submit">Send</button>
+								</div>
+							</form>
+						{% else %}
+							<div class="comment-replies">
+								<div class="comment">
+									<div class="comment-author">
+										<img src="{{ comment.user.image.url }}" alt="{{ user.image.alt }}">
+										<h3>
+											{{ comment.user}}
+										</h3>
+										<span>{{comment.created_at}}</span>
+									</div>
+									<p>
+										{{comment}}
+									</p>
+								</div>
+							</div>
+						{% endif %}
+					</div>
+					{% endfor %}
+				</div>
+
+			</div>
+		</div>
+	</div>
 {% endblock %}
