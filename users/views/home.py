@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
 
 from posts.models import Post
+from users.models import Relation
 
 
 User = get_user_model()
@@ -13,12 +15,16 @@ def home_view(request):
     :param request:
     :return:
     """
-    posts = Post.objects.filter(
-        is_active=True,
+
+    user = get_object_or_404(
+        User,
+        username=request.user.username
     )
+    users = user.following.all
     context = {
-        'posts': posts,
+        'users': users,
     }
+
     return render(
         request,
         template_name='users/home.html',
