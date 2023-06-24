@@ -15,9 +15,9 @@ def post_detail_view(request, username, post_id):
     :param post_id:
     :return:
     """
-    post = Post.objects.filter(
-        user__username=username,
-        is_active=True,
+    post = get_object_or_404(
+        Post,
+        id=post_id
     )
     context = {
         'post': post,
