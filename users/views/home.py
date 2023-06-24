@@ -23,7 +23,6 @@ def home_view(request):
     users = user.following.all
     context = {
         'users': users,
-        # 'posts': posts,
     }
 
     return render(
