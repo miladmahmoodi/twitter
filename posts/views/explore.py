@@ -17,6 +17,6 @@ def explore_view(request):
 
     return render(
         request,
-        template_name='posts/post-list.html',
+        template_name='posts/explore.html',
         context=context,
     )
