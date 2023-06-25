@@ -56,6 +56,13 @@
 					<span>
 						Comments: {{ post.comments_count }}
 					</span>
+					<span>
+						<a href="#">
+							{% if request.user != post.user.username %}
+								Archive Post
+							{% endif %}
+						</a>
+					</span>
 				</div>
 				<form method="post" action="" class="tweet-comment-form">
 					{% csrf_token %}
