@@ -68,14 +68,8 @@
 	line-height: 1.5;
 }
 .tweet-tag a{
-    color: blue;
+    color: #1da1f2;;
 }
-
-/*.tweet-tag {
-    font-size: 14px;
-    margin: 0 0 5px 0;
-    color: #999;
-}*/
 
 
 .tweet-footer {
