@@ -33,6 +33,14 @@
 				<p>
 					{{ post.caption | truncatewords:50}}
 				</p>
+				<div class="tweet-tag">
+					Tags:
+					{% for tag in tags %}
+						<a href="#">
+							{{ tag }}
+						</a>
+					{% endfor %}
+				</div>
 				<div class="tweet-img">
 					{% for image in post.images.all %}
 					<img src="{{ image.image.url }}" alt="{{ image.alt }}">
