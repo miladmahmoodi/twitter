@@ -1,9 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-
-from posts.models import Post
-from users.models import Relation
+from django.core.paginator import Paginator
 
 
 User = get_user_model()
@@ -20,9 +18,9 @@ def home_view(request):
         User,
         username=request.user.username
     )
-    users = user.following.all
+    following = user.following.all()
     context = {
-        'users': users,
+        'following': following,
     }
 
     return render(
