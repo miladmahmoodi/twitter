@@ -31,6 +31,7 @@ class UserAdmin(BaseUserAdmin):
                 "last_name",
                 "email",
                 'image',
+                'bio',
                 'followers_count',
                 'following_count',
                 'post_count',
