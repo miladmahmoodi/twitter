@@ -21,5 +21,18 @@ class Relation(BaseModel):
         related_name='followers',
     )
 
+    @staticmethod
+    def is_following(user, other):
+        """
+
+        :param user:
+        :param other:
+        :return:
+        """
+        return Relation.objects.filter(
+            from_user=user,
+            to_user=other,
+        ).exists()
+
     def __str__(self):
         return f'{self.from_user} following {self.to_user}'
