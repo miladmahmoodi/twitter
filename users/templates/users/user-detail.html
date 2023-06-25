@@ -38,6 +38,23 @@
 				{{ user.bio | default:'' }}
 			</p>
 		</div>
+		<div class="request">
+			<div class="request-content">
+				{% if request.user == user %}
+					<a href="#">
+						<button class="edit-button">Edit Profile</button>
+					</a>
+				{% elif request.user != user and not is_following %}
+					<a href="#">
+						<button class="follow-button">Follow</button>
+					</a>
+				{% else %}
+					<a href="#">
+						<button class="unfollow-button">Unfollow</button>
+					</a>
+				{% endif %}
+			</div>
+		</div>
 		<div class="stats">
 			<div class="stats-item">
 				<h2>

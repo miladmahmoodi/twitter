@@ -50,9 +50,46 @@ body {
 
 		.bio {
 			font-size: 16px;
-			margin-bottom: 40px;
+			margin-bottom: 20px;
 			color: #333;
 		}
+
+		.request {
+		    display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+		}
+
+		.request-content {
+
+		}
+
+		.request a {
+		    text-decoration: None;
+		}
+
+		.follow-button, .unfollow-button, .edit-button {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 150px;
+        }
+
+        .unfollow-button {
+            background-color: #f44336;
+        }
+
+        .edit-button {
+            background: gold;
+        }
 
 		.stats {
 			display: flex;
