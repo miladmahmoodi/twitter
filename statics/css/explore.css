@@ -61,12 +61,22 @@
 	padding: 0;
 }
 
-.tweet p {
+.tweet p, .tweet-tag{
 	font-size: 14px;
 	margin: 10px 0;
 	padding: 0;
 	line-height: 1.5;
 }
+.tweet-tag a{
+    color: blue;
+}
+
+/*.tweet-tag {
+    font-size: 14px;
+    margin: 0 0 5px 0;
+    color: #999;
+}*/
+
 
 .tweet-footer {
 	display: flex;
