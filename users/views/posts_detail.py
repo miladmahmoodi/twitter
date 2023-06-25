@@ -17,10 +17,13 @@ def post_detail_view(request, username, post_id):
     """
     post = get_object_or_404(
         Post,
-        id=post_id
+        id=post_id,
+        user__username=username,
     )
+    tags = post.tag.all()
     context = {
         'post': post,
+        'tags': tags,
     }
     return render(
         request,
