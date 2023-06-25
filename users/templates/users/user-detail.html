@@ -80,7 +80,7 @@
 			{% for post in posts %}
 				<div class="post">
 					<a href="#">
-						<img src="https://picsum.photos/id/1/400/300" alt="Post image">
+						<img src="{{ post.images.all.first.image.url }}" alt="{{ post.images.all.first.image.alt}}">
 						<div class="post-content">
 							<h3>
 								{{ post.title }}
