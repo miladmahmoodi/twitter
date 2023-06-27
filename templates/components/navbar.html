@@ -1,8 +1,15 @@
 {% load static %}
 <nav>
   <ul>
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Profile</a></li>
-    <li><a href="#">Explore</a></li>
+    <li><a href="{% url 'user:home' %}">Home</a></li>
+    {% if request.user.is_authenticated %}
+      <li><a href="{% url 'user:user_detail' request.user %}">Profile</a></li>
+    {% endif %}
+    <li><a href="{% url 'post:explore' %}">Explore</a></li>
+    {% if request.user.is_authenticated %}
+      <li><a href="{% url 'user:signout' %}">Sign out</a></li>
+    {% else %}
+      <li><a href="{% url 'user:signin' %}">Sign in</a></li>
+    {% endif %}
   </ul>
 </nav>
