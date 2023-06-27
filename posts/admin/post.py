@@ -51,3 +51,42 @@ class PostAdmin(admin.ModelAdmin):
         TagInline,
         ImageInline,
     ]
+    actions = [
+        'deactivate_post',
+        'activate_post',
+    ]
+
+    def delete_queryset(self, request, queryset):
+        """
+
+        :param request:
+        :param queryset:
+        :return:
+        """
+
+        queryset.update(
+            is_active=False,
+        )
+        self.message_user(
+            request,
+            'posts successfully deactivate.',
+        )
+
+    @admin.action(
+        description='Activate selected posts',
+    )
+    def activate_post(self, request, queryset):
+        """
+
+        :param request:
+        :param queryset:
+        :return:
+        """
+
+        queryset.update(
+            is_active=True,
+        )
+        self.message_user(
+            request,
+            'posts successfully activate.',
+        )
