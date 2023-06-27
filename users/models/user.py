@@ -1,11 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext as _
-from core.models import BaseModel, TimeStampMixin
-from core.utils.base_errors import BaseError
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from core.models import SoftDeleteModel
+from django.contrib.auth.models import AbstractUser
 
 
-class User(AbstractUser, BaseModel):
+class User(AbstractUser, SoftDeleteModel):
     email = models.EmailField(
         verbose_name=_("email address"),
         unique=True,
