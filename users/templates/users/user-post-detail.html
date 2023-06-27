@@ -17,7 +17,7 @@
 		<div class="tweets">
 			<div class="tweet">
 				<img src="{{post.user.image.url }}" alt="Profile Picture">
-				<a href="#">
+				<a href="{% url 'user:user_detail' post.user %}">
 					<h2>
 					{{ post.user.get_full_name }}
 					</h2>
@@ -33,14 +33,16 @@
 				<p>
 					{{ post.caption | truncatewords:50}}
 				</p>
-				{% for tag in tags %}
+				{% if tags %}
+					Tags:
 					<div class="tweet-tag">
-						Tags:
+						{% for tag in tags %}
 							<a href="{% url 'post:tag_posts' tag %}">
 								{{ tag }}
 							</a>
+						{% endfor %}
 					</div>
-				{% endfor %}
+				{% endif %}
 				<div class="tweet-img">
 					{% for image in post.images.all %}
 					<img src="{{ image.image.url }}" alt="{{ image.alt }}">
@@ -64,13 +66,15 @@
 						</span>
 					{% endif %}
 				</div>
-				<form method="post" action="" class="tweet-comment-form">
-					{% csrf_token %}
-					<textarea id="comment" name="comment" placeholder="Your comment..."></textarea>
-					<div class="tweet-comment-buttons">
-						<button type="submit">Send</button>
-					</div>
-				</form>
+				{% if request.user.is_authenticated %}
+					<form method="post" action="" class="tweet-comment-form">
+						{% csrf_token %}
+						<textarea id="comment" name="comment" placeholder="Your comment..."></textarea>
+						<div class="tweet-comment-buttons">
+							<button type="submit">Send</button>
+						</div>
+					</form>
+				{% endif %}
 				<div class="comments">
 					{% for comment in post.comments.all %}
 					<div class="comment">
@@ -85,13 +89,15 @@
 							<p>
 								{{comment}}
 							</p>
-							<form method="post" class="tweet-comment-form" id="tweet-answer-form">
-								{% csrf_token %}
-								<textarea id="reply" name="comment-reply" placeholder="Your answer..."></textarea>
-								<div class="tweet-comment-buttons">
-									<button type="submit">Send</button>
-								</div>
-							</form>
+							{% if request.user.is_authenticated %}
+								<form method="post" class="tweet-comment-form" id="tweet-answer-form">
+									{% csrf_token %}
+									<textarea id="reply" name="comment-reply" placeholder="Your answer..."></textarea>
+									<div class="tweet-comment-buttons">
+										<button type="submit">Send</button>
+									</div>
+								</form>
+							{% endif %}
 						{% else %}
 							<div class="comment-replies">
 								<div class="comment">
