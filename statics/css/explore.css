@@ -188,3 +188,7 @@
 .reply-button:hover {
 	background-color: #0c8de4;
 }
+
+#tweet-answer-form {
+    padding:0 45px;
+}
