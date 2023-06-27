@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+{{tag}} posts
+{% endblock %}
+
+{% block imports %}
+<link rel="stylesheet" href="{% static 'css/explore.css' %}">
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+        			<div>
+				{% include 'components/navbar.html' %}
+			</div>
+		<div class="tweets">
+			{% for post in posts %}
+			<div class="tweet">
+				<img src="{{post.user.image.url }}" alt="Profile Picture">
+				<a href="{% url 'user:user_detail' post.user %}">
+					<h2>
+					{{ post.user.get_full_name }}
+					</h2>
+					<span>
+						@{{ post.user }}
+					</span>
+				</a>
+				<a href="{% url 'user:post_detail' post.user post.id %}">
+					<p>
+						{{ post.title }}
+					</p>
+					<p>
+						{{ post.caption | truncatewords:50}}
+					</p>
+					<div class="tweet-img">
+						{% for image in post.images.all %}
+						<img src="{{ image.image.url }}" alt="{{ image.alt }}">
+						{% endfor %}
+					</div>
+					<div class="tweet-footer">
+						<span>
+							{{ post.created_at }}
+						</span>
+						<span>
+							Likes: {{ post.likes_count }}
+						</span>
+						<span>
+							Comments: {{ post.comments_count }}
+						</span>
+					</div>
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
