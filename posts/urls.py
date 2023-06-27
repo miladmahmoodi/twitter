@@ -12,5 +12,10 @@ urlpatterns = [
         views.explore_view,
         name='explore',
     ),
+    path(
+        'tags/<str:tag_name>/',
+        views.tag_posts_view,
+        name='tag_posts',
+    )
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
   + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
