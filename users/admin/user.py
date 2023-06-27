@@ -55,3 +55,42 @@ class UserAdmin(BaseUserAdmin):
         'following_count',
         'post_count',
     ]
+    actions = [
+        'deactivate_post',
+        'activate_post',
+    ]
+
+    def delete_queryset(self, request, queryset):
+        """
+
+        :param request:
+        :param queryset:
+        :return:
+        """
+
+        queryset.update(
+            is_active=False,
+        )
+        self.message_user(
+            request,
+            'users successfully deleted.',
+        )
+
+    @admin.action(
+        description='Activate selected posts',
+    )
+    def activate_post(self, request, queryset):
+        """
+
+        :param request:
+        :param queryset:
+        :return:
+        """
+
+        queryset.update(
+            is_active=True,
+        )
+        self.message_user(
+            request,
+            'users successfully activate.',
+        )
