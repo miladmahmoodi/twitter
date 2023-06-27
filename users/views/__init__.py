@@ -7,3 +7,4 @@ from .sign_in import signin_view
 from .sign_out import signout_view
 from .follow import follow_view
 from .unfollow import unfollow_view
+from .edit_profile import edit_profile_view

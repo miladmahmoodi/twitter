@@ -28,12 +28,20 @@ def post_detail_view(request, username, post_id):
         'post': post,
         'tags': tags,
     }
-    if request.POST.get('comment'):
-        Comment.objects.create(
-            user=request.user,
-            post=post,
-            text=request.POST.get('comment'),
-        )
+    if request.POST:
+        if request.POST.get('comment'):
+            Comment.objects.create(
+                user=request.user,
+                post=post,
+                text=request.POST.get('comment'),
+            )
+        elif request.POST.get('comment-reply'):
+            Comment.objects.create(
+                user=request.user,
+                post=post,
+                parent='',
+                text=request.POST.get('comment'),
+            )
     return render(
         request,
         template_name='users/user-post-detail.html',

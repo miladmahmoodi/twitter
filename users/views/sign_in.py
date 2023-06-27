@@ -34,6 +34,10 @@ def signin_view(request):
                     request,
                     user,
                 )
+            else:
+                return redirect(
+                    '/signin/'
+                )
 
             return redirect(
                 f'/{user.username}',
