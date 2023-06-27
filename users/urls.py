@@ -39,6 +39,11 @@ urlpatterns = [
         name='user_detail',
     ),
     path(
+      '<str:username>/edit/',
+      views.edit_profile_view,
+      name='edit_profile',
+    ),
+    path(
       '<str:username>/archive/',
       views.user_archive_view,
       name='user_archive',
