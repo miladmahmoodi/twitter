@@ -16,7 +16,8 @@
 			</div>
 		<div class="profile">
 			<div class="profile-img">
-				<img class="profile-img" src="{{ user.image.url }}" alt="{{ user.username }} image">
+				<img class="profile-img" src="
+				{% if user.image %} {{ user.image.url }} {% endif %}" alt="{{ user.username }} image">
 			</div>
 			<div class="profile-info">
 				<h1>
@@ -44,15 +45,15 @@
 					<a href="#">
 						<button class="edit-button">Edit Profile</button>
 					</a>
-					<a href="#">
+					<a href="{% url 'user:user_archive' user %}">
 						<button class="archive-button">Archive Account</button>
 					</a>
 				{% elif request.user != user and not is_following %}
-					<a href="#">
+					<a href="{% url 'user:follow' user %}">
 						<button class="follow-button">Follow</button>
 					</a>
 				{% else %}
-					<a href="#">
+					<a href="{% url 'user:unfollow' user %}">
 						<button class="unfollow-button">Unfollow</button>
 					</a>
 				{% endif %}
@@ -79,7 +80,7 @@
 		<div class="posts">
 			{% for post in posts %}
 				<div class="post">
-					<a href="#">
+				<a href="{% url 'user:post_detail' post.user post.id %}">
 						<img src="{{ post.images.all.first.image.url }}" alt="{{ post.images.all.first.image.alt}}">
 						<div class="post-content">
 							<h3>
