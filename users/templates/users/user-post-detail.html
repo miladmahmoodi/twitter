@@ -33,14 +33,14 @@
 				<p>
 					{{ post.caption | truncatewords:50}}
 				</p>
-				<div class="tweet-tag">
-					Tags:
-					{% for tag in tags %}
-						<a href="#">
-							{{ tag }}
-						</a>
-					{% endfor %}
-				</div>
+				{% for tag in tags %}
+					<div class="tweet-tag">
+						Tags:
+							<a href="{% url 'post:tag_posts' tag %}">
+								{{ tag }}
+							</a>
+					</div>
+				{% endfor %}
 				<div class="tweet-img">
 					{% for image in post.images.all %}
 					<img src="{{ image.image.url }}" alt="{{ image.alt }}">
@@ -56,17 +56,18 @@
 					<span>
 						Comments: {{ post.comments_count }}
 					</span>
-					<span>
-						<a href="#">
-							{% if request.user != post.user.username %}
+					{% if request.user == post.user %}
+						<span>
+							<a href="#">
 								Archive Post
-							{% endif %}
-						</a>
-					</span>
+							</a>
+						</span>
+					{% endif %}
 				</div>
 				<form method="post" action="" class="tweet-comment-form">
 					{% csrf_token %}
 					<textarea id="comment" name="comment" placeholder="Your comment..."></textarea>
+
 					<div class="tweet-comment-buttons">
 						<button type="submit">Send</button>
 					</div>
@@ -85,7 +86,7 @@
 							<p>
 								{{comment}}
 							</p>
-							<form method="post" action="" class="tweet-comment-form">
+							<form method="post" class="tweet-comment-form" id="tweet-answer-form">
 								{% csrf_token %}
 								<textarea id="reply" name="comment" placeholder="Your answer..."></textarea>
 								<div class="tweet-comment-buttons">
