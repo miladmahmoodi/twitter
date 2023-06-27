@@ -1,0 +1,12 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+{{post.title}}
+{% endblock %}
+
+{% block imports %}
+<link rel="stylesheet" href="{% static 'css/explore.css' %}">
+{% endblock %}
+
+{% block content %}
