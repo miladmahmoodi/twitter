@@ -1,4 +1,9 @@
 from .user_detail import user_detail_view
+from .user_archive import user_archive_view
 from .posts_detail import post_detail_view
+from .post_archive import post_archive_view
 from .home import home_view
-
+from .sign_in import signin_view
+from .sign_out import signout_view
+from .follow import follow_view
+from .unfollow import unfollow_view
