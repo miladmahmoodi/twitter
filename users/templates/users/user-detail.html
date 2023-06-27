@@ -42,7 +42,7 @@
 		<div class="request">
 			<div class="request-content">
 				{% if request.user == user %}
-					<a href="#">
+					<a href="{% url 'user:edit_profile' user %}">
 						<button class="edit-button">Edit Profile</button>
 					</a>
 					<a href="{% url 'user:user_archive' user %}">
