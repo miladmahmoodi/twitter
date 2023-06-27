@@ -60,7 +60,7 @@
 					</span>
 					{% if request.user == post.user %}
 						<span>
-							<a href="#">
+							<a href="{% url 'user:post_archive' post.user post.id %}">
 								Archive Post
 							</a>
 						</span>
