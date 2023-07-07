@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import Manager
+
 from core.models import SoftDeleteModel, TimeStampMixin
 from django.utils.translation import gettext as _
 
@@ -29,7 +31,7 @@ class Post(TimeStampMixin, SoftDeleteModel):
         verbose_name=_('tag'),
         null=True,
         blank=True,
-        editable=False,
+        # editable=False,
     )
     likes_count = models.PositiveIntegerField(
         verbose_name=_('likes count'),
@@ -67,5 +69,38 @@ class Post(TimeStampMixin, SoftDeleteModel):
             self.likes_count -= 1
             self.save()
 
+    def add_post_comment(self):
+        """
+
+        :return:
+        """
+        self.comments_count += 1
+        self.save()
+
+    def remove_post_comment(self):
+        """
+
+        :return:
+        """
+        if self.likes_count > 0:
+            self.comments_count -= 1
+            self.save()
+
     def __str__(self):
         return self.title
+
+    class Meta:
+        ordering = [
+            '-created_at',
+        ]
+
+
+class PostRecycle(Post):
+    """
+
+    """
+
+    objects = Manager()
+
+    class Meta:
+        proxy = True,

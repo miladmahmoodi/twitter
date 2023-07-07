@@ -3,3 +3,4 @@ from .image import ImageAdmin
 from .like import LikeAdmin
 from .post import PostAdmin
 from .tag import TagAdmin
+from .tag_relation import TagRelationAdmin

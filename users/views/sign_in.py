@@ -1,47 +1,65 @@
+from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from django.contrib import messages
+
+from users.forms import SigninForm
+from core.utils import UsersMessages
 
 
-def signin_view(request):
-    """
+class SigninView(View):
+    template_name = 'users/sign-in.html'
+    form_class = SigninForm
 
-    :param request:
-    :return:
-    """
-
-    if request.method == 'GET':
-        """
-        """
+    def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect(
-                '/home/'
+                'user:home',
             )
+        return super().dispatch(request, *args, **kwargs)
 
+    def get(self, request):
+        context = {
+            'form': self.form_class()
+        }
         return render(
             request,
-            template_name='users/sign-in.html',
+            template_name=self.template_name,
+            context=context,
         )
 
-    if request.method == 'POST':
-        if not request.user.is_authenticated:
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
             user = authenticate(
                 request,
-                username=request.POST.get('username'),
-                password=request.POST.get('password'),
+                username=form.cleaned_data.get('username'),
+                password=form.cleaned_data.get('password'),
             )
             if user:
                 login(
                     request,
                     user,
                 )
-            else:
-                return redirect(
-                    '/signin/'
+                messages.add_message(
+                    request,
+                    level=messages.SUCCESS,
+                    message=UsersMessages.login_successfully
                 )
-
-            return redirect(
-                f'/{user.username}',
+                return redirect(
+                    'user:user_detail',
+                    pk=user.pk,
+                )
+            messages.error(
+                request,
+                message=UsersMessages.login_fail,
             )
-        return redirect(
-            '/home/'
+        context = {
+            'form': form,
+        }
+        return render(
+            request,
+            template_name=self.template_name,
+            context=context,
+            status=400,
         )

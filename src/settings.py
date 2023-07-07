@@ -138,3 +138,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Change default user model
 AUTH_USER_MODEL = 'users.User'
+
+LOGIN_URL = '/user/signin/'

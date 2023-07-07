@@ -1,38 +1,26 @@
 from django.db import models
+from django.db.models import QuerySet
 from django.utils.translation import gettext as _
 from uuid import uuid4
 
 
-class MyManager(models.Manager):
-    """
-
-    """
-
-    def get_queryset(self):
-        """
-
-        :return:
-        """
-        return super().get_queryset()
-
-    def actives(self):
-        """
-
-        :return:
-        """
-
-        return super().get_queryset().filter(
-            is_active=True,
+class SoftQuerySet(QuerySet):
+    def delete(self):
+        return self.update(
+            is_active=False,
         )
 
-    def archives(self):
-        """
 
-        :return:
-        """
+class SoftManager(models.Manager):
+    """
 
-        return super().get_queryset().filter(
-            is_active=False,
+    """
+    def get_queryset(self):
+        return SoftQuerySet(
+            self.model,
+            self._db,
+        ).filter(
+            is_active=True,
         )
 
 
@@ -46,6 +34,17 @@ class BaseModel(models.Model):
         verbose_name=_('created at'),
         auto_now_add=True,
     )
+
+    def delete(self, using=None, keep_parents=False):
+        """
+
+        :param using:
+        :param keep_parents:
+        :return:
+        """
+
+        self.is_active = False
+        self.save()
 
     class Meta:
         abstract = True
@@ -61,7 +60,7 @@ class SoftDeleteModel(BaseModel):
         default=True,
     )
 
-    objects = MyManager()
+    objects = SoftManager()
     
     def delete(self, using=None, keep_parents=False):
         """
@@ -76,18 +75,18 @@ class SoftDeleteModel(BaseModel):
 
     class Meta:
         abstract = True
-        indexes = [
-            models.Index(
-                fields=[
-                    'is_active',
-                ],
-                name='is_active_index',
-            ),
-        ]
+    #     indexes = [
+    #         models.Index(
+    #             fields=[
+    #                 'is_active',
+    #             ],
+    #             name='is_active_index',
+    #         ),
+    #     ]
 
 
 class TimeStampMixin:
-    update_at = models.DateTimeField(
+    updated_at = models.DateTimeField(
         verbose_name=_('updated at'),
         auto_now=True,
     )

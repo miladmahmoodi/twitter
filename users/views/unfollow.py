@@ -1,28 +1,53 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.shortcuts import get_object_or_404
+from django.views.generic import View
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib import messages
+
+from core.utils import UsersMessages
 from users.models import User, Relation
 
 
-def unfollow_view(request, username):
+class UnfollowView(LoginRequiredMixin, View):
     """
 
-    :param request:
-    :param username:
-    :return:
     """
 
-    user = get_object_or_404(
-        User,
-        username=username,
-    )
-    follow = Relation.objects.filter(
-        from_user=request.user,
-        to_user=user,
-    )
-    if follow:
-        follow.delete()
+    def setup(self, request, *args, **kwargs):
+        self.this_user = get_object_or_404(
+            User,
+            pk=kwargs.get('pk'),
+        )
+        return super().setup(request, *args, **kwargs)
 
-    return redirect(
-        f'/{user}/',
-    )
+    def post(self, request, *args, **kwargs):
+
+        if self.this_user:
+            relation = Relation.objects.filter(
+                from_user=request.user,
+                to=self.this_user,
+            )
+
+            if relation.exists():
+                relation.delete()
+                self.this_user.min_followers_count()
+
+                request.user.min_following_count()
+
+                level = messages.SUCCESS
+                message = UsersMessages.unfollow_successfully
+            else:
+                level = messages.ERROR
+                message = UsersMessages.unfollow_exists
+        else:
+            level = messages.ERROR
+            message = UsersMessages.unfollow_failed
+
+        messages.add_message(
+            request,
+            level=level,
+            message=message,
+        )
+        return redirect(
+            'user:user_detail',
+            pk=kwargs.get('pk'),
+        )

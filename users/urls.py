@@ -8,60 +8,60 @@ from . import views
 app_name = 'users'
 urlpatterns = [
     path(
-      'signin/',
-      views.signin_view,
-      name='signin',
+        'signin/',
+        views.SigninView.as_view(),
+        name='signin',
     ),
     path(
-      'signout/',
-      views.signout_view,
-      name='signout',
+        'signout/',
+        views.SignOutView.as_view(),
+        name='signout',
     ),
     path(
-        'register/',
-        views.register_view,
-        name='register',
+        'signup/',
+        views.SignupView.as_view(),
+        name='signup',
     ),
     path(
         'home/',
-        views.home_view,
+        views.HomeView.as_view(),
         name='home',
 
     ),
     path(
-      'follow/<str:username>/',
-      views.follow_view,
-      name='follow',
+        'search/',
+        views.SearchUser.as_view(),
+        name='search-user',
     ),
     path(
-      'unfollow/<str:username>/',
-      views.unfollow_view,
-      name='unfollow',
+        'follow/<uuid:pk>/',
+        views.FollowView.as_view(),
+        name='follow',
     ),
     path(
-        '<str:username>/',
-        views.user_detail_view,
+        'unfollow/<uuid:pk>/',
+        views.UnfollowView.as_view(),
+        name='unfollow',
+    ),
+    path(
+        '<uuid:pk>/',
+        views.UserDetailView.as_view(),
         name='user_detail',
     ),
     path(
-      '<str:username>/edit/',
-      views.edit_profile_view,
-      name='edit_profile',
+        '<uuid:pk>/edit/',
+        views.UpdateProfileView.as_view(),
+        name='edit_profile',
     ),
     path(
-      '<str:username>/archive/',
-      views.user_archive_view,
-      name='user_archive',
+        'chang-password/',
+        views.ChangePasswordView.as_view(),
+        name='change-password',
     ),
     path(
-        '<str:username>/status/<uuid:post_id>/',
-        views.post_detail_view,
-        name='post_detail',
-    ),
-    path(
-      '<str:username>/status/<uuid:post_id>/archive/',
-      views.post_archive_view,
-      name='post_archive',
+        '<uuid:pk>/archive/',
+        views.UserArchiveView.as_view(),
+        name='user_archive',
     ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
   + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

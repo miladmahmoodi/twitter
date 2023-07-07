@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+Search User
+{% endblock %}
+
+{% block imports %}
+<link rel="stylesheet" href="{% static 'css/explore.css' %}">
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div>
+			{% include 'components/navbar.html' %}
+		</div>
+		<div class="tweets">
+			{% for user in users %}
+			<div class="tweet">
+				<img src="{{ user.image.url }}" alt="Profile Picture">
+				<a href="{% url 'user:user_detail' user.pk %}">
+					<h2>
+					{{ user.get_full_name }}
+					</h2>
+					<span>
+						@{{ user }}
+					</span>
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
