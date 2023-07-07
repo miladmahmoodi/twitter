@@ -1,16 +1,17 @@
 {% load static %}
 <nav>
   <ul>
-    <li><a href="{% url 'user:home' %}">Home</a></li>
     {% if request.user.is_authenticated %}
-      <li><a href="{% url 'user:user_detail' request.user %}">Profile</a></li>
+      <li><a href="{% url 'user:home' %}">Home</a></li>
+      <li><a href="{% url 'user:user_detail' request.user.pk %}">Profile</a></li>
+      <li><a href="{% url 'post:create_post' %}">Create Post</a></li>
     {% endif %}
     <li><a href="{% url 'post:explore' %}">Explore</a></li>
     {% if request.user.is_authenticated %}
       <li><a href="{% url 'user:signout' %}">Sign out</a></li>
     {% else %}
       <li><a href="{% url 'user:signin' %}">Sign in</a></li>
-      <li><a href="{% url 'user:register' %}">Register</a></li>
+      <li><a href="{% url 'user:signup' %}">Sign up</a></li>
     {% endif %}
   </ul>
 </nav>

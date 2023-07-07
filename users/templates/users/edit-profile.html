@@ -13,16 +13,13 @@ Edit Profile {{user}}
 <div>
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <label for="username">Username</label>
-    <input type="text" id="username" name="username" value="{{user.username}}">
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" value="{{user.email}}">
-    <label for="name">First name</label>
-    <input type="text" id="name" name="first_name" value="{{user.first_name}}">
-    <label for="lastname">Last name</label>
-    <input type="text" id="lastname" name="last_name" value="{{user.last_name}}">
-    <label for="bio">Biography</label>
-    <input type="text" id="bio" name="bio" value="{{user.bio}}">
+    {{ form.as_p }}
     <input type="submit" value="Update">
+    <a href="{% url 'user:change-password' %}">
+      Change password
+    </a>
+  </form>
+
 </div>
+
 {% endblock %}

@@ -11,49 +11,68 @@ Home
 
 {% block content %}
 	<div class="container">
-        			<div>
-				{% include 'components/navbar.html' %}
-			</div>
+		<div>
+			{% include 'components/navbar.html' %}
+		</div>
+		<form action="{% url 'user:search-user' %}" method="GET" class="search-form">
+			{{ form.as_p }}
+			<input type="submit" value="Search">
+		</form>
 		<div class="tweets">
-			{% for user in following %}
-				{% for post in user.to_user.posts.all %}
-					<div class="tweet">
-						<img src="/media/{{ post.user.image }}" alt="{{user.username}}">
-						<a href="{% url 'user:user_detail' post.user %}">
-							<h2>
-							{{ post.user.get_full_name }}
-							</h2>
+			{% for post in posts %}
+				<div class="tweet">
+					<img src="/media/{{ post.user.image }}" alt="{{user.username}}">
+					<a href="{% url 'user:user_detail' post.user.pk %}">
+						<h2>
+						{{ post.user.get_full_name }}
+						</h2>
+						<span>
+							@{{ post.user }}
+						</span>
+					</a>
+					<a href="{% url 'post:post_detail' post.pk %}">
+						<p>
+							{{ post.title }}
+						</p>
+						<p>
+							{{ post.caption | truncatewords:50}}
+						</p>
+						<div class="tweet-img">
+							{% for image in post.images.all %}
+							<img src="{{ image.image.url }}" alt="{{ image.alt }}">
+							{% endfor %}
+						</div>
+						<div class="tweet-footer">
 							<span>
-								@{{ post.user }}
+								{{ post.created_at }}
 							</span>
-						</a>
-						<a href="{% url 'user:post_detail' post.user post.id %}">
-							<p>
-								{{ post.title }}
-							</p>
-							<p>
-								{{ post.caption | truncatewords:50}}
-							</p>
-							<div class="tweet-img">
-								{% for image in post.images.all %}
-								<img src="{{ image.image.url }}" alt="{{ image.alt }}">
-								{% endfor %}
-							</div>
-							<div class="tweet-footer">
-								<span>
-									{{ post.created_at }}
-								</span>
-								<span>
-									Likes: {{ post.likes_count }}
-								</span>
-								<span>
-									Comments: {{ post.comments_count }}
-								</span>
-							</div>
-						</a>
-					</div>
-				{% endfor %}
+							<span>
+								Likes: {{ post.likes_count }}
+							</span>
+							<span>
+								Comments: {{ post.comments_count }}
+							</span>
+						</div>
+					</a>
+				</div>
 			{% endfor %}
+			<div class="pagination">
+				<span class="step-links">
+					{% if page_obj.has_previous %}
+						<a href="?page=1">&laquo; first</a>
+						<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+					{% endif %}
+
+					<span class="current">
+						Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+					</span>
+
+					{% if page_obj.has_next %}
+						<a href="?page={{ page_obj.next_page_number }}">next</a>
+						<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+					{% endif %}
+				</span>
+			</div>
 		</div>
 	</div>
 {% endblock %}

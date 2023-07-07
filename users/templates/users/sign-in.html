@@ -12,14 +12,24 @@ Sign in
 {% block content %}
 <div>
   <form method="POST">
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      <br>
+    {% endif %}
+
     {% csrf_token %}
-    <label for="username">Username</label>
-    <input type="text" id="username" name="username" required>
-
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" required>
-
+    {{ form.as_p }}
+    {% if message %}
+      {{ message }}
+    {% endif %}
     <input type="submit" value="sign in">
+    <a href="{% url 'user:signup' %}">
+      sign up
+    </a>
   </form>
 </div>
 {% endblock %}

@@ -14,7 +14,7 @@ class Relation(BaseModel):
         verbose_name=_('from user'),
         related_name='following',
     )
-    to_user = models.ForeignKey(
+    to = models.ForeignKey(
         'User',
         on_delete=models.CASCADE,
         verbose_name=_('to user'),
@@ -31,8 +31,8 @@ class Relation(BaseModel):
         """
         return Relation.objects.filter(
             from_user=user,
-            to_user=other,
+            to=other,
         ).exists()
 
     def __str__(self):
-        return f'{self.from_user} following {self.to_user}'
+        return f'{self.from_user} following {self.to}'

@@ -2,9 +2,141 @@
 {% load static %}
 
 {% block title %}
-<!--    product title-->
+{{post.title}}
+{% endblock %}
+
+{% block imports %}
+<link rel="stylesheet" href="{% static 'css/explore.css' %}">
 {% endblock %}
 
 {% block content %}
-<!--    product content-->
+		<div class="container">
+			{% if messages %}
+			  <ul class="messages">
+				{% for message in messages %}
+				  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+				{% endfor %}
+			  </ul>
+			  <br>
+			{% endif %}
+			<div>
+				{% include 'components/navbar.html' %}
+			</div>
+		<div class="tweets">
+			<div class="tweet">
+				<img src="{{post.user.image.url }}" alt="Profile Picture">
+				<a href="{% url 'user:user_detail' post.user.pk %}">
+					<h2>
+					{{ post.user.get_full_name }}
+					</h2>
+					<span>
+						@{{ post.user }}
+					</span>
+				</a>
+				<p>
+					{{ post.title }}
+				</p>
+				<p>
+					{{ post.caption | truncatewords:50}}
+				</p>
+				{% if tags %}
+					Tags:
+					<div class="tweet-tag">
+						{% for tag in tags %}
+							<a href="{% url 'post:tag_posts' tag.pk  %}">
+								{{ tag }}
+							</a>
+						{% endfor %}
+					</div>
+				{% endif %}
+				<div class="tweet-img">
+					{% for image in post.images.all %}
+					    <img src = "{{ image.image.url }}" alt = "{{ image.alt }}" >
+					{% endfor %}
+				</div>
+				<div class="tweet-footer">
+					<span>
+						{{ post.created_at }}
+					</span>
+					<span>
+						{% if is_like %}
+							<form method="POST" action="{% url 'post:post_dislike' post.pk %}">
+								{% csrf_token %}
+								<input type="submit" value="Dislike: {{ post.likes_count }}" class="dislike-post">
+							</form>
+						{% else %}
+							<form method="POST" action="{% url 'post:post_like' post.pk %}">
+								{% csrf_token %}
+								<input type="submit" value="Like: {{ post.likes_count }}" class="like-post">
+							</form>
+						{% endif %}
+					</span>
+					<span>
+						Comments: {{ post.comments_count }}
+					</span>
+					{% if request.user == post.user %}
+						<span>
+							<form method="POST" action="{% url 'post:post_archive' post.pk %}">
+								{% csrf_token %}
+								<input type="submit" value="Archive Post">
+							</form>
+						</span>
+						<span>
+							<a href="{% url 'post:post_update' post.pk %}">
+								Edit Post
+							</a>
+						</span>
+					{% endif %}
+				</div>
+				{% if request.user.is_authenticated %}
+					<form method="post" action="" class="tweet-comment-form">
+						{% csrf_token %}
+						{{ form.as_p }}
+						<input type="submit" value="Send" class="tweet-comment-buttons">
+					</form>
+				{% endif %}
+				<div class="comments">
+					{% for comment in post.comments.all %}
+					<div class="comment">
+						{% if not comment.parent %}
+							<div class="comment-author">
+								<img src="{{ comment.user.image.url }}" alt="{{ user.image.alt }}">
+								<h3>
+									{{ comment.user}}
+								</h3>
+								<span>{{comment.created_at}}</span>
+							</div>
+							<p>
+								{{comment}}
+							</p>
+							{% if request.user.is_authenticated %}
+								<form method="post" action="{% url 'post:comment_reply' post.pk comment.pk %}" class="tweet-comment-reply-form">
+									{% csrf_token %}
+									{{ form.as_p }}
+									<input type="submit" value="Send" class="tweet-comment-buttons">
+								</form>
+							{% endif %}
+						{% else %}
+							<div class="comment-replies">
+								<div class="comment">
+									<div class="comment-author">
+										<img src="{{ comment.user.image.url }}" alt="{{ user.image.alt }}">
+										<h3>
+											{{ comment.user}}
+										</h3>
+										<span>{{comment.created_at}}</span>
+									</div>
+									<p>
+										{{comment}}
+									</p>
+								</div>
+							</div>
+						{% endif %}
+					</div>
+					{% endfor %}
+				</div>
+
+			</div>
+		</div>
+	</div>
 {% endblock %}

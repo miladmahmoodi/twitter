@@ -12,6 +12,16 @@
 {% block content %}
       	<div class="container">
 			<div>
+				{% if messages %}
+					<ul class="messages">
+					  {% for message in messages %}
+						<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+					  {% endfor %}
+					</ul>
+					<br>
+			  	{% endif %}
+			</div>
+			<div>
 				{% include 'components/navbar.html' %}
 			</div>
 		<div class="profile">
@@ -42,20 +52,24 @@
 		<div class="request">
 			<div class="request-content">
 				{% if request.user == user %}
-					<a href="{% url 'user:edit_profile' user %}">
+					<a href="{% url 'user:edit_profile' user.pk %}">
 						<button class="edit-button">Edit Profile</button>
 					</a>
-					<a href="{% url 'user:user_archive' user %}">
-						<button class="archive-button">Archive Account</button>
-					</a>
+					<form action="{% url 'user:user_archive' user.pk %}" method="POST">
+						{% csrf_token %}
+						<input type="submit" class="archive-button" value="Archive Account">
+					</form>
+				{{ is_following }}
 				{% elif request.user != user and not is_following %}
-					<a href="{% url 'user:follow' user %}">
-						<button class="follow-button">Follow</button>
-					</a>
+					<form action="{% url 'user:follow' user.pk %}" method="POST">
+						{% csrf_token %}
+						<input type="submit" class="follow-button" value="Follow">
+					</form>
 				{% else %}
-					<a href="{% url 'user:unfollow' user %}">
-						<button class="unfollow-button">Unfollow</button>
-					</a>
+					<form action="{% url 'user:unfollow' user.pk %}" method="POST">
+						{% csrf_token %}
+						<input type="submit" class="unfollow-button" value="Unfollow">
+					</form>
 				{% endif %}
 			</div>
 		</div>
@@ -80,7 +94,7 @@
 		<div class="posts">
 			{% for post in posts %}
 				<div class="post">
-				<a href="{% url 'user:post_detail' post.user post.id %}">
+				<a href="{% url 'post:post_detail' post.pk %}">
 						<img src="{{ post.images.all.first.image.url }}" alt="{{ post.images.all.first.image.alt}}">
 						<div class="post-content">
 							<h3>
