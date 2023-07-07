@@ -81,12 +81,33 @@
 	margin-top: 10px;
 }
 
-.tweet-footer a {
+.tweet-footer a, .tweet-footer input[type="submit"]{
 	color: #1da1f2;
 	text-decoration: none;
 	font-size: 14px;
 	font-weight: bold;
 	display: inline-block;
+}
+
+.tweet-footer input[type="submit"] {
+    border-style: none;
+    background: none;
+    cursor: pointer;
+}
+
+.tweet-footer form .like-post{
+    padding: 8px;
+    border: solid;
+    border-radius: 10px;
+    color: white;
+    background: red;
+}
+.tweet-footer form .dislike-post{
+    padding: 8px;
+    border: solid;
+    border-radius: 10px;
+    color: black;
+    background: white;
 }
 
 .tweet-footer a:hover {
@@ -98,18 +119,25 @@
 	font-size: 14px;
 }
 
-.tweet-comment-form {
+.tweet-comment-form, .tweet-comment-reply-form {
     margin-top: 20px;
     padding: 10px;
 }
 
-.tweet-comment-form textarea{
-    resize: none;
-    width: 100%;
-    height: 50px;
+.tweet-comment-reply-form {
+    padding: 0 50px;
 }
 
-.tweet-comment-form button{
+.tweet-comment-form textarea, .tweet-comment-reply-form  textarea{
+    resize: none;
+    width: 95%;
+    height: 70px;
+    border-radius: 7px;
+    padding: 10px;
+}
+
+
+.tweet-comment-form input[type="submit"], .tweet-comment-reply-form  input[type="submit"]{
     background-color: #1da1f2;
     color: #fff;
     padding: 6px 16px;
@@ -191,4 +219,63 @@
 
 #tweet-answer-form {
     padding:0 45px;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0;
+}
+
+.search-form input[type="text"] {
+    width: 300px;
+    height: 12px;
+    padding: 10px;
+    margin: 0 10px 0 0;
+    border-radius: 5px;
+    outline: none;
+}
+
+.search-form input[type="submit"] {
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-form button[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+.tag-name, .tag-follow, .tag-unfollow{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.tag-name {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.tag-follow form input[type="submit" i], .tag-unfollow form input[type="submit" i]{
+    background-color: #1da1f2;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.tag-unfollow form input[type="submit" i] {
+    background-color: red;
 }

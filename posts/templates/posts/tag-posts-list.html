@@ -11,14 +11,25 @@
 
 {% block content %}
 	<div class="container">
-        			<div>
-				{% include 'components/navbar.html' %}
+		<div>
+			{% include 'components/navbar.html' %}
+		</div>
+		<div>
+			<div class="tag-name">
+				{{ tag }} Posts
 			</div>
+			<div class="tag-follow">
+				<form method="POST">
+					{% csrf_token %}
+					<input type="submit" value="Follow {{tag}}">
+				</form>
+			</div>
+		</div>
 		<div class="tweets">
 			{% for post in posts %}
 			<div class="tweet">
 				<img src="{{post.user.image.url }}" alt="Profile Picture">
-				<a href="{% url 'user:user_detail' post.user %}">
+				<a href="{% url 'user:user_detail' post.user.pk %}">
 					<h2>
 					{{ post.user.get_full_name }}
 					</h2>
@@ -26,7 +37,7 @@
 						@{{ post.user }}
 					</span>
 				</a>
-				<a href="{% url 'user:post_detail' post.user post.id %}">
+				<a href="{% url 'post:post_detail' post.pk %}">
 					<p>
 						{{ post.title }}
 					</p>
@@ -52,6 +63,23 @@
 				</a>
 			</div>
 			{% endfor %}
+			<div class="pagination">
+				<span class="step-links">
+					{% if page_obj.has_previous %}
+						<a href="?page=1">&laquo; first</a>
+						<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+					{% endif %}
+
+					<span class="current">
+						Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+					</span>
+
+					{% if page_obj.has_next %}
+						<a href="?page={{ page_obj.next_page_number }}">next</a>
+						<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+					{% endif %}
+				</span>
+			</div>
 		</div>
 	</div>
 {% endblock %}
