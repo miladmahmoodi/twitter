@@ -18,6 +18,7 @@ class UsersMessages:
     unfollow_failed = 'unfollow failed'
     post_archive_successfully = 'post archive successfully'
     create_post_successfully = 'create post successfully'
+    create_post_denied = 'create post denied'
     like_successfully = 'like successfully'
     like_Error = 'like Error'
     dislike_successfully = 'dislike successfully'
