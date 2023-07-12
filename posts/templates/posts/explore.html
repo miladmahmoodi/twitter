@@ -12,6 +12,16 @@ Explore
 {% block content %}
 	<div class="container">
 		<div>
+			{% if messages %}
+			  <ul class="messages">
+				{% for message in messages %}
+				  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+				{% endfor %}
+			  </ul>
+			  <br>
+			{% endif %}
+		</div>
+		<div>
 			{% include 'components/navbar.html' %}
 		</div>
 		<form action="{% url 'user:search-user' %}" method="GET" class="search-form">
