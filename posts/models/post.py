@@ -42,14 +42,14 @@ class Post(TimeStampMixin, SoftDeleteModel):
         default=0,
     )
 
-    def is_like_by_user(self, user):
+    def is_like_by_user(self, username):
         """
 
-        :param user:
+        :param username:
         :return:
         """
         return self.likes.filter(
-            user=user
+            user__username=username
         ).exists()
 
     def add_post_like(self):
