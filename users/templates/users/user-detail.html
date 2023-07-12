@@ -51,25 +51,26 @@
 		</div>
 		<div class="request">
 			<div class="request-content">
-				{% if request.user == user %}
-					<a href="{% url 'user:edit_profile' user.pk %}">
-						<button class="edit-button">Edit Profile</button>
-					</a>
-					<form action="{% url 'user:user_archive' user.pk %}" method="POST">
-						{% csrf_token %}
-						<input type="submit" class="archive-button" value="Archive Account">
-					</form>
-				{{ is_following }}
-				{% elif request.user != user and not is_following %}
-					<form action="{% url 'user:follow' user.pk %}" method="POST">
-						{% csrf_token %}
-						<input type="submit" class="follow-button" value="Follow">
-					</form>
-				{% else %}
-					<form action="{% url 'user:unfollow' user.pk %}" method="POST">
-						{% csrf_token %}
-						<input type="submit" class="unfollow-button" value="Unfollow">
-					</form>
+				{% if request.user.is_authenticated %}
+					{% if request.user == user %}
+						<a href="{% url 'user:edit_profile' user.pk %}">
+							<button class="edit-button">Edit Profile</button>
+						</a>
+						<form action="{% url 'user:user_archive' user.pk %}" method="POST">
+							{% csrf_token %}
+							<input type="submit" class="archive-button" value="Archive Account">
+						</form>
+					{% elif request.user != user and not is_following %}
+						<form action="{% url 'user:follow' user.pk %}" method="POST">
+							{% csrf_token %}
+							<input type="submit" class="follow-button" value="Follow">
+						</form>
+					{% else %}
+						<form action="{% url 'user:unfollow' user.pk %}" method="POST">
+							{% csrf_token %}
+							<input type="submit" class="unfollow-button" value="Unfollow">
+						</form>
+					{% endif %}
 				{% endif %}
 			</div>
 		</div>
