@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block title %}
-Edit Post {{post}}
+Edit Post {{post.title}}
 {% endblock %}
 
 {% block imports %}
-<link rel="stylesheet" href="{% static 'css/edit-profile.css' %}">
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -17,6 +17,14 @@ Edit Post {{post}}
       </div>
     {% csrf_token %}
     {{ form.as_p }}
+    {% for image in image_form %}
+      <div>
+        {% if image_form.instance.id %}
+          <img src="{{ image_form.instance.image.url }}" width="200px">
+        {% endif %}
+        {{ image.as_p }}
+      </div>
+    {% endfor %}
     <input type="submit" value="Update">
   </form>
 
