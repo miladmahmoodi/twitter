@@ -21,11 +21,12 @@ class UserDetailView(DetailView):
         context['posts'] = posts.filter(
             is_active=True,
         )
-
-        is_following = Relation.objects.filter(
-            from_user=self.request.user,
-            to=self.this_user,
-        ).exists()
+        is_following = False
+        if not self.request.user.is_anonymous:
+            is_following = Relation.objects.filter(
+                from_user=self.request.user,
+                to=self.this_user,
+            ).exists()
         if is_following:
             context['is_following'] = is_following
 
