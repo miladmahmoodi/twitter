@@ -11,7 +11,7 @@ from core.utils import UsersMessages
 User = get_user_model()
 
 
-class PostDetailView(LoginRequiredMixin, View):
+class PostDetailView(View):
     """
 
     """
@@ -22,7 +22,6 @@ class PostDetailView(LoginRequiredMixin, View):
     def setup(self, request, *args, **kwargs):
         self.this_post = get_object_or_404(
             Post,
-            is_active=True,
             pk=kwargs.get('pk'),
         )
         return super().setup(request, *args, **kwargs)
@@ -37,13 +36,13 @@ class PostDetailView(LoginRequiredMixin, View):
 
         post = get_object_or_404(
             Post,
-            is_active=True,
             pk=pk,
         )
         tags = post.tag.all()
+        is_like = post.is_like_by_user(request.user.username)
         context = {
             'post': post,
-            'is_like': post.is_like_by_user(request.user),
+            'is_like': is_like,
             'form': self.form_class(),
             'tags': tags,
         }
