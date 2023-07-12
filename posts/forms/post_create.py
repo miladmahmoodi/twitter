@@ -1,26 +1,31 @@
-from django.forms import inlineformset_factory, ModelForm
+from django import forms
 from posts.models import Post, Image
 
 
-class PostCreateForm(ModelForm):
+class PostCreateForm(forms.ModelForm):
+    tags = forms.CharField(
+        label='Tags',
+        required=False,
+    )
+
     class Meta:
         model = Post
         fields = [
             'title',
             'caption',
-            'tag',
         ]
 
 
-class ImageCreateForm(ModelForm):
+class ImageCreateForm(forms.ModelForm):
     class Meta:
         model = Image
         fields = '__all__'
 
 
-ImageCreateFormSet = inlineformset_factory(
-    Post,
-    Image,
+ImageCreateFormSet = forms.inlineformset_factory(
+    parent_model=Post,
+    model=Image,
     fields='__all__',
-    extra=1,
+    extra=3,
+    max_num=5,
 )
