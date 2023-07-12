@@ -46,6 +46,11 @@ class SigninView(View):
                     level=messages.SUCCESS,
                     message=UsersMessages.login_successfully
                 )
+
+                if request.GET.get('next'):
+                    return redirect(
+                        request.GET.get('next')
+                    )
                 return redirect(
                     'user:user_detail',
                     pk=user.pk,
