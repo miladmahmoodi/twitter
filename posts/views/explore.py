@@ -7,7 +7,7 @@ from posts.models import Post
 from users.forms import SearchForm
 
 
-class ExploreListView(LoginRequiredMixin, ListView):
+class ExploreListView(ListView):
     """
 
     """
@@ -23,7 +23,7 @@ class ExploreListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         context = Post.objects.exclude(
-            user=self.request.user,
+            user__username=self.request.user,
         )
         return context
 

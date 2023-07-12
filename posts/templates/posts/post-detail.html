@@ -59,12 +59,12 @@
 						{{ post.created_at }}
 					</span>
 					<span>
-						{% if is_like %}
+						{% if is_like and request.user.is_authenticated %}
 							<form method="POST" action="{% url 'post:post_dislike' post.pk %}">
 								{% csrf_token %}
 								<input type="submit" value="Dislike: {{ post.likes_count }}" class="dislike-post">
 							</form>
-						{% else %}
+						{% elif not is_like and request.user.is_authenticated %}
 							<form method="POST" action="{% url 'post:post_like' post.pk %}">
 								{% csrf_token %}
 								<input type="submit" value="Like: {{ post.likes_count }}" class="like-post">
