@@ -15,7 +15,7 @@ class PostCreateView(LoginRequiredMixin, View):
 
     template_name = 'posts/create-post.html'
     form_class = PostCreateForm
-    image_form_class = ImageCreateFormSet
+    image_form_set = ImageCreateFormSet
 
     def get(self, request):
         """
