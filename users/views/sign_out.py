@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.contrib.auth import logout
 from django.contrib import messages
+from django.shortcuts import redirect
 
 from core.utils import UsersMessages
 
@@ -21,6 +22,6 @@ class SignOutView(View):
             level=messages.SUCCESS,
             message=UsersMessages.signout_successfully,
         )
-        return HttpResponseRedirect(
-            settings.LOGIN_URL,
+        return redirect(
+            'post:explore',
         )
