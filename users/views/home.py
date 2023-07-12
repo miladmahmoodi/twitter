@@ -1,8 +1,7 @@
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
-
-from itertools import chain
+from django.db.models import Q
 
 from users.models import User
 from users.forms import SearchForm
@@ -36,11 +35,11 @@ class HomeView(LoginRequiredMixin, ListView):
         following_tags = [
             tag.to for tag in following_tag
         ]
-
         posts = Post.objects.filter(
             user__in=following_users,
         )
         tag_posts = Post.objects.filter(
+            ~Q(user=self.this_user),
             tag__in=following_tags,
         )
         posts_data = posts | tag_posts
