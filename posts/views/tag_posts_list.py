@@ -19,14 +19,12 @@ class TagPostsListView(LoginRequiredMixin, ListView):
     paginate_by = 3
 
     def setup(self, request, *args, **kwargs):
-        self.this_tag = get_object_or_404(
-            Tag,
+        self.this_tag = Tag.objects.filter(
             pk=kwargs.get('pk'),
-        )
-        self.this_user = get_object_or_404(
-            User,
+        ).first()
+        self.this_user = User.objects.filter(
             pk=request.user.pk,
-        )
+        ).first()
         return super().setup(request, *args, **kwargs)
 
     def get_queryset(self):
