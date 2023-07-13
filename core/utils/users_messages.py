@@ -31,3 +31,5 @@ class UsersMessages:
     tag_follow_successfully = 'tag follow successfully'
     tag_unfollow_successfully = 'tag unfollow successfully'
 
+    # Exceptions Error
+    integrity_exception = 'Post title already exists.'
