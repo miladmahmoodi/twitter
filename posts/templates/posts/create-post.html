@@ -13,14 +13,16 @@ Create Post
 
   <div>
     <form method="POST" enctype="multipart/form-data">
-      {% if messages %}
-        <ul class="messages">
-          {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-          {% endfor %}
-        </ul>
-        <br>
-      {% endif %}
+      <div>
+        {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+          </ul>
+          <br>
+        {% endif %}
+      </div>
       <div>
         {% include 'components/navbar.html' %}
       </div>
