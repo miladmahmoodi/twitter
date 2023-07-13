@@ -37,9 +37,9 @@ class PostArchiveView(LoginRequiredMixin, View):
         :return:
         """
 
-        # self.this_post.post_count -= 1
-        # self.this_post.save()
         self.this_post.delete()
+        self.this_post.user.min_post_count()
+
 
         messages.add_message(
             request,
