@@ -69,6 +69,22 @@ class User(AbstractUser, SoftDeleteModel):
             self.following_count -= 1
             self.save()
 
+    def add_post_count(self):
+        """
+
+        :return:
+        """
+        self.post_count += 1
+        self.save()
+
+    def min_post_count(self):
+        """
+
+        :return:
+        """
+        if self.post_count > 0:
+            self.post_count -= 1
+            self.save()
 
     def __str__(self):
         return self.username
